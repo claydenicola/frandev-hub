@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Mainstream Boutique — FranDev Performance Dashboard</title>
+<style>
+  :root {
+    --bg: #f7f5f0;
+    --ink: #1f1d1b;
+    --muted: #6e6a63;
+    --accent: #EF9F9F;
+    --accent-dark: #B55D5D;
+    --accent-soft: #FDF1F1;
+    --green: #2f6a3e;
+    --amber: #b17a1e;
+    --red: #a03232;
+    --card: #ffffff;
+    --border: #e2ded4;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.45;
+  }
+  header {
+    padding: 32px 40px 20px;
+    border-bottom: 1px solid var(--accent-dark);
+    background: linear-gradient(135deg, #F5B8B8 0%, #EF9F9F 100%);
+    color: #3A1F1F;
+  }
+  header h1 { color: #3A1F1F; margin: 0; font-size: 28px; letter-spacing: -0.01em; }
+  header .sub { color: #5A3535; font-size: 14px; margin-top: 6px; }
+  main { padding: 28px 40px 60px; max-width: 1280px; }
+  section { margin-bottom: 32px; }
+  h2 {
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-dark);
+    margin: 0 0 12px;
+    font-weight: 700;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .grid-5 {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+  }
+  @media (max-width: 1100px) { .grid-5 { grid-template-columns: repeat(2, 1fr); } }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  }
+  .card.accent { border-top: 3px solid var(--accent); }
+  .kpi .label {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+    min-height: 32px;
+  }
+  .kpi .value {
+    font-size: 36px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--accent-dark);
+  }
+  .kpi .delta {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+  .kpi .delta.pos { color: var(--green); }
+  .kpi .delta.neg { color: var(--red); }
+  .kpi .delta.pending { color: var(--amber); font-style: italic; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  th {
+    font-weight: 600;
+    color: var(--muted);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .bar {
+    display: inline-block;
+    height: 10px;
+    border-radius: 3px;
+    background: var(--accent);
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+  .bar.muted { background: var(--border); }
+  .pill {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .pill.green { background: #e4f2e8; color: var(--green); }
+  .pill.amber { background: #f7ecd0; color: var(--amber); }
+  .pill.red   { background: #f6dcdc; color: var(--red); }
+  .pill.coral { background: var(--accent-soft); color: var(--accent-dark); }
+  .refresh {
+    background: var(--accent-soft);
+    border: 1px solid var(--accent);
+    border-left: 4px solid var(--accent);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: #3A1F1F;
+    margin-top: 24px;
+  }
+  .refresh b { color: var(--accent-dark); }
+  .note {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 10px;
+  }
+  .pending-banner {
+    background: #fff6e6;
+    border: 1px solid var(--amber);
+    border-left: 4px solid var(--amber);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: #5c4818;
+    margin-bottom: 24px;
+  }
+  footer {
+    padding: 20px 40px 40px;
+    color: var(--muted);
+    font-size: 12px;
+  }
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  @media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
+</style>
+<script src="../gate.js"></script>
+</head>
+<body>
+
+<header>
+  <h1>FranDev Performance Dashboard</h1>
+  <div class="sub" style="font-style:italic;opacity:0.85;margin-bottom:4px;">Operation Lunar Boutique — Taking the boutique to the moon 🚀</div>
+  <div class="sub">Mainstream Boutique Franchising · Snapshot: 2026-04-21 · Owner: Clay DeNicola (Katie Skrove, operational)</div>
+</header>
+
+<main>
+
+<div class="pending-banner">
+  <b>Data state note:</b> "Disengaged Lead" status + 30-day auto-aging is pending FranConnect support (ticket filed 2026-04-20).
+  Counts below model the <i>intended</i> distribution post-reclassification of ~1,677 aged "New Lead" records.
+  Re-engagement Working metrics populate once the updated Lead Engagement tab is live (see SOP).
+</div>
+
+<!-- TOP-LINE KPIs: At a Glance - Intake -->
+<section>
+  <h2>At a Glance — Intake</h2>
+  <div class="grid-5">
+    <div class="card kpi accent">
+      <div class="label">Total Pipeline<br><span style="text-transform:none;color:var(--muted);font-size:11px;font-weight:400;">(Disengaged Leads in FC)</span></div>
+      <div class="value">1,677</div>
+      <div class="delta pending">Pending reclassification</div>
+    </div>
+    <div class="card kpi accent">
+      <div class="label">Leads Re-engagement Working</div>
+      <div class="value">0</div>
+      <div class="delta">Status = Re-engagement - Working</div>
+    </div>
+    <div class="card kpi accent">
+      <div class="label">% Leads Being Engaged</div>
+      <div class="value">0.1%</div>
+      <div class="delta">(Re-eng + Intro + FDD) ÷ Pipeline</div>
+    </div>
+    <div class="card kpi accent">
+      <div class="label">Introductory Calls Conducted</div>
+      <div class="value">0</div>
+      <div class="delta">Status = Intro Call Conducted</div>
+    </div>
+    <div class="card kpi accent">
+      <div class="label">FDD Disclosed &amp; App Sent</div>
+      <div class="value">1</div>
+      <div class="delta">Sadie Suel</div>
+    </div>
+  </div>
+</section>
+
+<!-- STATUS DISTRIBUTION + RE-ENGAGEMENT WORKING -->
+<section class="two-col">
+
+  <div class="card">
+    <h2>Status Distribution — Top of Funnel (in Intake Stage)</h2>
+    <table>
+      <thead>
+        <tr><th>Status</th><th>Count</th><th>Share</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>New Lead <span style="color:var(--muted);font-size:11px;">(&lt;30 days only)</span></td><td>5</td><td><span class="bar" style="width: 3px;"></span>0.3%</td></tr>
+        <tr><td>Disengaged Lead</td><td>1,677</td><td><span class="bar" style="width: 200px;"></span>99.6%</td></tr>
+        <tr><td>Re-engagement - Working</td><td>0</td><td><span class="bar muted" style="width: 2px;"></span>—</td></tr>
+        <tr><td>Intro Call Conducted</td><td>0</td><td><span class="bar muted" style="width: 2px;"></span>—</td></tr>
+        <tr><td>FDD Disclosed &amp; App Sent</td><td>1</td><td><span class="bar" style="width: 2px;"></span>0.1%</td></tr>
+      </tbody>
+    </table>
+    <div class="note">Full breakdown mirrors the "FranDev Weekly Pulse" report in FranConnect → Sales → Reports.</div>
+  </div>
+
+  <div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+      <h2 style="margin:0;">Re-engagement Working</h2>
+      <span class="pill coral">ACTIVE · WORKFLOW A</span>
+    </div>
+    <div style="font-size: 13px; color: var(--muted); margin-bottom: 14px;">
+      Fires on lead status → <b>Re-engagement - Working</b>. Sends first-touch SMS with Katie's Calendly link + internal notification email to Clay. Connection outcomes tracked via the Lead Engagement tab's Attempt log.
+    </div>
+    <table>
+      <tbody>
+        <tr><td>Re-engagement attempts in-flight</td><td><b>0</b></td></tr>
+        <tr><td>Successful connections this week</td><td><b>0</b></td></tr>
+        <tr><td>Intro calls scheduled from re-engagement</td><td><b>0</b></td></tr>
+        <tr><td>Moved to dead this week</td><td><b>0</b></td></tr>
+        <tr><td>Top converting channel (30d)</td><td><b>—</b> <span style="color:var(--muted);font-size:11px;">insufficient data</span></td></tr>
+      </tbody>
+    </table>
+    <div class="note">Channel mix + top converting channel populate once the Attempt-log fields are live in the Lead Engagement tab (see SOP).</div>
+  </div>
+
+</section>
+
+<!-- CHANNEL MIX PLACEHOLDER -->
+<section>
+  <div class="card">
+    <h2>Channel Mix of Connections (last 30 days)</h2>
+    <table>
+      <thead>
+        <tr><th>Channel</th><th>Attempts</th><th>Connections</th><th>Connect Rate</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Phone</td><td>0</td><td>0</td><td>—</td></tr>
+        <tr><td>SMS</td><td>0</td><td>0</td><td>—</td></tr>
+        <tr><td>Email</td><td>0</td><td>0</td><td>—</td></tr>
+      </tbody>
+    </table>
+    <div class="note">Auto-calculated from the Attempt log (Date / Channel / Outcome) once field deployment completes. Drives the "Top converting channel" KPI above.</div>
+  </div>
+</section>
+
+<!-- WORKFLOW B -->
+<section>
+  <h2>Workflow Automation — Workflow B</h2>
+  <div class="grid">
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <strong>Workflow B — Intro Call Conducted</strong>
+        <span class="pill green">ACTIVE</span>
+      </div>
+      <div style="font-size: 13px; color: var(--muted); margin-bottom: 12px;">
+        Fires when lead status → Intro Call Conducted · sends internal notification email to Clay.
+      </div>
+      <table>
+        <tbody>
+          <tr><td>Fires this week</td><td><b>0</b></td></tr>
+          <tr><td>Downstream → FDD Disclosed</td><td><b>0</b></td></tr>
+          <tr><td>Disengaged post-call</td><td><b>0</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <strong>Workflow C — FDD Sent via Portal (pending)</strong>
+        <span class="pill amber">QUEUED</span>
+      </div>
+      <div style="font-size: 13px; color: var(--muted); margin-bottom: 12px;">
+        On "FDD Sent via Portal?" = Yes → auto-advance lead status: Intro Call Conducted → FDD Disclosed &amp; App Sent. Activates alongside Lead Engagement tab update.
+      </div>
+      <table>
+        <tbody>
+          <tr><td>Status</td><td><b>Awaiting field deployment</b></td></tr>
+          <tr><td>Expected go-live</td><td><b>With Lead Engagement v2</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- KATIE QUEUE -->
+<section>
+  <h2>Katie's Week-1 Queue — Top 10 Freshest</h2>
+  <div class="card" style="padding: 0; overflow: hidden;">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Lead</th>
+          <th>Date Entered</th>
+          <th>Emails Read</th>
+          <th>Heat</th>
+          <th>Signal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td><b>Leslie O'Hare</b></td><td>2026-04-01</td><td>1</td><td>10</td><td><span class="pill red">HOT</span></td></tr>
+        <tr><td>2</td><td><b>Olivia Richardson</b></td><td>2026-02-12</td><td>4</td><td>5</td><td><span class="pill red">HOT</span></td></tr>
+        <tr><td>3</td><td>Donna Gill</td><td>2026-04-07</td><td>1</td><td>5</td><td><span class="pill amber">WARM</span></td></tr>
+        <tr><td>4</td><td>Lisa Speelman</td><td>2026-04-02</td><td>1</td><td>5</td><td><span class="pill amber">WARM</span></td></tr>
+        <tr><td>5</td><td>Halalisani Maphumulo</td><td>2026-02-05</td><td>2</td><td>0</td><td><span class="pill amber">WARM</span></td></tr>
+        <tr><td>6</td><td>Danielle Stacy</td><td>2026-02-18</td><td>2</td><td>0</td><td><span class="pill amber">WARM</span></td></tr>
+        <tr><td>7</td><td>Chris Brady</td><td>2026-02-26</td><td>0</td><td>0</td><td><span class="pill">COOL</span></td></tr>
+        <tr><td>8</td><td>Jessica Rask</td><td>2026-02-18</td><td>0</td><td>0</td><td><span class="pill">COOL</span></td></tr>
+        <tr><td>9</td><td>Lisa Nilli</td><td>2026-02-09</td><td>0</td><td>0</td><td><span class="pill">COOL</span></td></tr>
+        <tr><td>10</td><td>Kathy Jonesross</td><td>2026-02-04</td><td>0</td><td>0</td><td><span class="pill">COOL</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note">See Week-1 Attack List .docx for working script + full priority logic.</div>
+</section>
+
+<!-- CALLOUTS -->
+<section>
+  <h2>Notable This Week</h2>
+  <div class="grid">
+    <div class="card">
+      <div style="font-size: 12px; color: var(--muted); margin-bottom: 6px;">STRATEGIC</div>
+      <div style="font-size: 15px; font-weight: 600; margin-bottom: 8px; color: var(--accent-dark);">Katie Skrove started Day 1</div>
+      <div style="font-size: 13px; color: var(--ink);">
+        Full handoff from Clay's queue. First 10 leads prioritized, workflows automating first-touch SMS + Clay-side internal notifications. Week-1 target: 50 leads contacted, 5+ intro calls booked.
+      </div>
+    </div>
+    <div class="card">
+      <div style="font-size: 12px; color: var(--muted); margin-bottom: 6px;">SYSTEM</div>
+      <div style="font-size: 15px; font-weight: 600; margin-bottom: 8px; color: var(--accent-dark);">FC support ticket filed — auto-aging + bulk reclassify</div>
+      <div style="font-size: 13px; color: var(--ink);">
+        Filed 2026-04-20. Requests (1) 30-day auto-transition New Lead → Disengaged Lead, and (2) bulk reclass of ~1,677 aged records. Once complete, Total Pipeline box and Status Distribution populate against the real Disengaged bucket.
+      </div>
+    </div>
+    <div class="card">
+      <div style="font-size: 12px; color: var(--muted); margin-bottom: 6px;">OPPORTUNITY</div>
+      <div style="font-size: 15px; font-weight: 600; margin-bottom: 8px; color: var(--accent-dark);">Olivia Richardson — 4 emails read, never contacted</div>
+      <div style="font-size: 13px; color: var(--ink);">
+        Highest email-engagement lead in the top-20. Sitting untouched since Feb 12. Katie's #2 priority this week.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REFRESH INSTRUCTIONS -->
+<div class="refresh">
+  <b>Refresh cadence:</b> Static snapshot. Dynamic native report lives at FranConnect → <b>Sales → Reports</b> ("FranDev Weekly Pulse"). Katie updates KPI numbers every Friday EOD before the Monday CEO sync. A future v3 will auto-refresh via FranConnect API + the Lead Engagement tab Attempt log.
+</div>
+
+</main>
+
+<footer>
+  Mainstream Boutique Franchise Development · Generated 2026-04-20 · Dashboard v2 — Intake-focused, re-engagement-aware.
+</footer>
+
+</body>
+</html>

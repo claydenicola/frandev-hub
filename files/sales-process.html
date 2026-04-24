@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<script src="../gate.js"></script>
+<title>FranDev Sales Process — Mainstream Boutique</title>
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#FAF7F2;color:#2B2A28;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.55}
+
+  /* Top bar */
+  .topbar{background:#fff;border-bottom:1px solid #E6DFD4;padding:10px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+  .topbar a.back{color:#B55D5D;text-decoration:none;font-size:13px;font-weight:500}
+  .topbar a.back:hover{text-decoration:underline}
+  .topbar .brand{font-size:13px;color:#8A8681;letter-spacing:.02em}
+
+  /* Hero */
+  .hero-wrap{max-width:960px;margin:40px auto 24px;padding:0 28px}
+  .hero{background:linear-gradient(135deg,#F5B8B8 0%,#EF9F9F 100%);border:1px solid #B55D5D;border-radius:10px;padding:28px 32px;color:#3A1F1F}
+  .hero h1{font-size:30px;margin:0 0 6px;letter-spacing:-0.01em;color:#3A1F1F}
+  .hero .sub{color:#5A3535;margin:0;font-size:14px}
+  .hero .sub.lunar{font-style:italic;margin-bottom:4px}
+
+  /* Stage nav */
+  .stage-nav{position:sticky;top:42px;background:rgba(250,247,242,0.96);backdrop-filter:blur(6px);border-bottom:1px solid #E6DFD4;z-index:40;margin-top:24px}
+  .stage-nav-inner{max-width:960px;margin:0 auto;padding:10px 28px;display:flex;gap:24px;overflow-x:auto}
+  .stage-nav a{color:#8A8681;text-decoration:none;font-size:14px;font-weight:500;padding:6px 2px;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;white-space:nowrap}
+  .stage-nav a:hover{color:#B55D5D}
+  .stage-nav a.active{color:#B55D5D;border-bottom-color:#EF9F9F}
+
+  /* Wrap */
+  .wrap{max-width:960px;margin:0 auto;padding:28px}
+
+  /* Overview table card */
+  .overview{background:#fff;border:1px solid #E6DFD4;border-radius:10px;padding:24px 28px;margin-bottom:32px}
+  .overview h2{font-size:20px;margin:0 0 4px;color:#B55D5D}
+  .overview .lede{color:#5A5753;font-size:14px;margin:0 0 18px}
+  .overview table{width:100%;border-collapse:collapse}
+  .overview th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#8A8681;text-align:left;padding:8px 4px;border-bottom:1px solid #E6DFD4;font-weight:600}
+  .overview td{padding:14px 4px;border-bottom:1px solid #F0EBE3;font-size:14px;vertical-align:top}
+  .overview td:first-child{font-weight:600;color:#3A1F1F;width:200px}
+  .overview td:last-child{color:#5A5753;font-style:italic}
+  .overview tr:last-child td{border-bottom:none}
+
+  /* Stage section */
+  .stage{background:#fff;border:1px solid #E6DFD4;border-radius:10px;margin-bottom:24px;overflow:hidden;scroll-margin-top:100px}
+  .stage-header{padding:24px 28px 18px;border-bottom:1px solid #F0EBE3;display:flex;align-items:flex-start;gap:18px}
+  .stage-num{flex-shrink:0;width:44px;height:44px;border-radius:50%;background:#EF9F9F;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;font-family:Georgia,serif}
+  .stage-title{flex:1}
+  .stage-title h2{font-size:24px;margin:0 0 4px;color:#B55D5D;letter-spacing:-0.01em}
+  .stage-title p{margin:0;color:#5A5753;font-size:14px}
+  .stage-body{padding:20px 28px 24px}
+  .stage-body h3{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:#8A8681;margin:0 0 14px;font-weight:600}
+  .checklist{list-style:none;padding:0;margin:0}
+  .checklist li{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #F7F3ED;align-items:flex-start}
+  .checklist li:last-child{border-bottom:none}
+  .check{flex-shrink:0;width:18px;height:18px;border:1.5px solid #D4A3A3;border-radius:4px;margin-top:2px;display:flex;align-items:center;justify-content:center;background:#FDF9F4}
+  .checklist li .text{flex:1;font-size:14.5px;color:#3A1F1F}
+  .checklist li .text strong{color:#2B2A28;font-weight:600}
+  .exit-banner{margin-top:20px;padding:14px 18px;background:linear-gradient(135deg,#F5B8B8 0%,#EF9F9F 100%);color:#3A1F1F;border-radius:8px;font-size:14px;font-weight:500;text-align:center;border:1px solid #B55D5D}
+  .exit-banner .arrow{margin:0 6px;opacity:.7}
+
+  /* Dead Lead / Nurture - different layout */
+  .nurture-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:6px}
+  @media (max-width:640px){.nurture-grid{grid-template-columns:1fr}}
+  .nurture-card{border:1px solid #E6DFD4;border-radius:8px;padding:20px;background:#FDF9F4}
+  .nurture-card.revive{border-left:4px solid #8CB39B}
+  .nurture-card.dead{border-left:4px solid #8A8681}
+  .nurture-card h4{margin:0 0 4px;font-size:17px;color:#3A1F1F}
+  .nurture-card .desc{margin:0 0 14px;font-size:13px;color:#8A8681;font-style:italic}
+  .nurture-card .sub-label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#8A8681;font-weight:600;margin-bottom:8px}
+  .nurture-card ul{margin:0;padding-left:18px;font-size:13.5px;color:#3A1F1F}
+  .nurture-card li{padding:3px 0}
+
+  /* Footer */
+  .footer{color:#8A8681;font-size:12.5px;margin-top:40px;border-top:1px solid #E6DFD4;padding-top:18px;text-align:center}
+
+  /* Print */
+  @media print{
+    .topbar,.stage-nav{display:none}
+    body{background:#fff}
+    .stage,.overview{page-break-inside:avoid;box-shadow:none;border:1px solid #ccc}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="back" href="./index.html">← FranFiles</a>
+  <span class="brand">Mainstream Boutique · FranDev</span>
+</div>
+
+<div class="hero-wrap">
+  <div class="hero">
+    <h1>FranDev Sales Process</h1>
+    <p class="sub lunar">Operation Lunar Boutique 🚀</p>
+    <p class="sub">Five stages, one question each — how leads move through the pipeline from first contact to signed franchisee.</p>
+  </div>
+</div>
+
+<nav class="stage-nav" id="stageNav">
+  <div class="stage-nav-inner">
+    <a href="#overview">Overview</a>
+    <a href="#intake">Intake</a>
+    <a href="#qualifying">Qualifying</a>
+    <a href="#closing">Closing</a>
+    <a href="#signed">Signed</a>
+    <a href="#nurture">Dead Lead / Nurture</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <section class="overview" id="overview">
+    <h2>Sales Process Buckets</h2>
+    <p class="lede">Every lead sits in one of five buckets. Each bucket answers exactly one question.</p>
+    <table>
+      <thead>
+        <tr><th>Bucket</th><th>The only question it should answer</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Intake</td><td>Is this a real prospect worth our time?</td></tr>
+        <tr><td>Qualifying</td><td>Can this person fund, open, and operate successfully?</td></tr>
+        <tr><td>Closing</td><td>Should we formally award them a franchise?</td></tr>
+        <tr><td>Signed</td><td>Has the deal been executed and handed off cleanly?</td></tr>
+        <tr><td>Dead Lead / Nurture</td><td>Is this recoverable later, or truly lost?</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="stage" id="intake">
+    <div class="stage-header">
+      <div class="stage-num">1</div>
+      <div class="stage-title">
+        <h2>Intake</h2>
+        <p>First contact and basic verification.</p>
+      </div>
+    </div>
+    <div class="stage-body">
+      <h3>Intake Checklist</h3>
+      <ul class="checklist">
+        <li><span class="check"></span><span class="text"><strong>Form submission</strong> and automated welcome sequence complete (email + SMS with Path to Ownership doc, Mac's video, Calendly link)</span></li>
+        <li><span class="check"></span><span class="text"><strong>Introductory call</strong> conducted</span></li>
+        <li><span class="check"></span><span class="text"><strong>FDD sent</strong> to lead through Portal</span></li>
+        <li><span class="check"></span><span class="text"><strong>FDD Comms</strong> sent to lead via lead status step</span></li>
+        <li><span class="check"></span><span class="text"><strong>FDD Receipt</strong> signed by lead via portal</span></li>
+        <li><span class="check"></span><span class="text"><strong>Pre-qualification</strong> passed by candidate</span></li>
+      </ul>
+      <div class="exit-banner">All boxes checked<span class="arrow">→</span>Lead moves into the <strong>Qualifying</strong> stage</div>
+    </div>
+  </section>
+
+  <section class="stage" id="qualifying">
+    <div class="stage-header">
+      <div class="stage-num">2</div>
+      <div class="stage-title">
+        <h2>Qualifying</h2>
+        <p>Can this candidate fund, open, and operate successfully?</p>
+      </div>
+    </div>
+    <div class="stage-body">
+      <h3>Qualifying Checklist</h3>
+      <ul class="checklist">
+        <li><span class="check"></span><span class="text"><strong>FDD review</strong> completed and clarifying questions answered</span></li>
+        <li><span class="check"></span><span class="text"><strong>Application and financial disclosure</strong> completed — minimums met, realistic funding path, no red flags</span></li>
+        <li><span class="check"></span><span class="text"><strong>3Q question write-up</strong> completed</span></li>
+        <li><span class="check"></span><span class="text"><strong>Interview assessments</strong> passed</span></li>
+        <li><span class="check"></span><span class="text"><strong>Realistic expectations</strong> confirmed by lead</span></li>
+        <li><span class="check"></span><span class="text"><strong>Next meeting</strong> scheduled</span></li>
+      </ul>
+      <div class="exit-banner">All boxes checked<span class="arrow">→</span>Lead moves into the <strong>Closing</strong> stage</div>
+    </div>
+  </section>
+
+  <section class="stage" id="closing">
+    <div class="stage-header">
+      <div class="stage-num">3</div>
+      <div class="stage-title">
+        <h2>Closing</h2>
+        <p>Eliminate risk, secure approval, and formally award the candidate.</p>
+      </div>
+    </div>
+    <div class="stage-body">
+      <h3>Closing Checklist</h3>
+      <ul class="checklist">
+        <li><span class="check"></span><span class="text"><strong>Funding validated</strong> — pre-approval or proof of funds confirming $250k–$400k liquid/accessible</span></li>
+        <li><span class="check"></span><span class="text"><strong>Validation requests</strong> accommodated; no remaining concerns from lead</span></li>
+        <li><span class="check"></span><span class="text"><strong>FranDev presentation</strong> made to Management and formal approval to award gained</span></li>
+        <li><span class="check"></span><span class="text"><strong>Franchise awarded</strong> (award communication sent) and accepted by lead</span></li>
+        <li><span class="check"></span><span class="text"><strong>FDD 16-day compliance</strong> confirmed</span></li>
+        <li><span class="check"></span><span class="text"><strong>Agreements</strong> drafted and sent with execution instructions</span></li>
+      </ul>
+      <div class="exit-banner">All boxes checked<span class="arrow">→</span>Lead moves into the <strong>Signed</strong> stage</div>
+    </div>
+  </section>
+
+  <section class="stage" id="signed">
+    <div class="stage-header">
+      <div class="stage-num">4</div>
+      <div class="stage-title">
+        <h2>Signed / Handoff</h2>
+        <p>Execute the deal, collect funds, and hand the franchisee off to onboarding.</p>
+      </div>
+    </div>
+    <div class="stage-body">
+      <h3>Signed / Handoff Checklist</h3>
+      <ul class="checklist">
+        <li><span class="check"></span><span class="text"><strong>Franchise agreement</strong> fully executed by all parties</span></li>
+        <li><span class="check"></span><span class="text"><strong>Initial franchise fee</strong> collected and confirmed by finance</span></li>
+        <li><span class="check"></span><span class="text"><strong>Franchisee profile</strong> created in CRM / FranConnect</span></li>
+        <li><span class="check"></span><span class="text"><strong>Sales handoff memo</strong> completed</span></li>
+        <li><span class="check"></span><span class="text"><strong>Onboarding kickoff</strong> scheduled</span></li>
+        <li><span class="check"></span><span class="text"><strong>Handoff accepted</strong> by onboarding team</span></li>
+      </ul>
+      <div class="exit-banner">All boxes checked<span class="arrow">→</span><strong>Handoff complete</strong></div>
+    </div>
+  </section>
+
+  <section class="stage" id="nurture">
+    <div class="stage-header">
+      <div class="stage-num">5</div>
+      <div class="stage-title">
+        <h2>Dead Lead / Nurture</h2>
+        <p>Select one primary category, then a sub-reason.</p>
+      </div>
+    </div>
+    <div class="stage-body">
+      <div class="nurture-grid">
+        <div class="nurture-card revive">
+          <h4>Inactive but Nurture</h4>
+          <p class="desc">Potential to revive</p>
+          <div class="sub-label">Sub-reasons</div>
+          <ul>
+            <li>Stalled / timing</li>
+            <li>Lost contact</li>
+            <li>Lost interest</li>
+            <li>Never made contact</li>
+            <li>Unqualified for now</li>
+            <li>Other (note required)</li>
+          </ul>
+        </div>
+        <div class="nurture-card dead">
+          <h4>Dead Forever</h4>
+          <p class="desc">No future pursuit</p>
+          <div class="sub-label">Sub-reasons</div>
+          <ul>
+            <li>Spam</li>
+            <li>Permanently unqualified</li>
+            <li>Bad fit forever (personality / values)</li>
+            <li>Bought different franchise</li>
+            <li>Other (note required)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer">
+    FranDev Sales Process · Mainstream Boutique Franchising · Reference doc for Clay, Katie, and leadership.
+  </div>
+
+</div>
+
+<script>
+  // Scroll-spy for stage nav
+  const navLinks = document.querySelectorAll('.stage-nav a');
+  const sections = Array.from(navLinks).map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  function updateActive(){
+    const scrollPos = window.scrollY + 140;
+    let activeIdx = 0;
+    sections.forEach((s,i)=>{ if(s.offsetTop <= scrollPos) activeIdx = i; });
+    navLinks.forEach((a,i)=>a.classList.toggle('active', i===activeIdx));
+  }
+  window.addEventListener('scroll', updateActive, {passive:true});
+  updateActive();
+</script>
+
+</body>
+</html>
