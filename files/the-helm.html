@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<script src="../gate.js"></script>
+<title>The Helm — FranDev · Mainstream Boutique</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&family=Lato:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#FAF7F2;color:#2B2A28;font-family:Lato,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.55}
+a{color:inherit}
+
+.topbar{background:#fff;border-bottom:1px solid #E6DFD4;padding:10px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.topbar .brand-left{font-size:12px;color:#8A8681;letter-spacing:2px;text-transform:uppercase;font-weight:700}
+.topbar .brand-right{font-size:12px;color:#8A8681}
+.topbar a.back{color:#B55D5D;text-decoration:none;font-size:13px;font-weight:500}
+.topbar a.back:hover{text-decoration:underline}
+
+.wrap{max-width:1180px;margin:0 auto;padding:36px 28px 64px}
+
+.hero{background:linear-gradient(135deg,#F5B8B8 0%,#EF9F9F 100%);border:1px solid #B55D5D;border-radius:14px;padding:32px 36px;margin-bottom:28px;color:#3A1F1F}
+.hero .wordmark{font-size:11px;font-weight:700;letter-spacing:3px;color:#5A3535;text-transform:uppercase;margin-bottom:8px}
+.hero h1{font-family:Cardo,'Times New Roman',Georgia,serif;font-size:42px;font-weight:400;margin:0 0 6px;letter-spacing:-0.01em;color:#3A1F1F;line-height:1.1}
+.hero .tag{color:#5A3535;margin:0;font-size:15.5px;font-style:italic}
+.hero .meta{color:#5A3535;margin:14px 0 0;font-size:12.5px;font-weight:600;letter-spacing:1px;text-transform:uppercase}
+
+.section-label{font-family:Lato,sans-serif;font-size:11.5px;font-weight:700;letter-spacing:2px;color:#8A8681;text-transform:uppercase;margin:0 0 16px;display:flex;align-items:center;gap:10px}
+.section-label::after{content:"";flex:1;height:1px;background:#E6DFD4}
+
+.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:36px}
+.kpi-card{background:#fff;border:1px solid #E6DFD4;border-left:4px solid #EF9F9F;border-radius:12px;padding:22px 24px;display:flex;flex-direction:column;min-height:148px;transition:box-shadow .15s,border-color .15s}
+.kpi-card:hover{box-shadow:0 2px 12px rgba(0,0,0,0.05);border-color:#B55D5D}
+.kpi-eye{font-size:10.5px;font-weight:700;letter-spacing:1.8px;color:#B55D5D;text-transform:uppercase;margin-bottom:8px}
+.kpi-num{font-family:Cardo,serif;font-size:46px;font-weight:700;color:#2B2A28;line-height:1;margin:4px 0 8px}
+.kpi-name{font-size:14.5px;font-weight:700;color:#2B2A28;margin:0 0 4px}
+.kpi-sub{font-size:12.5px;color:#5A5753;margin:0;line-height:1.4}
+.kpi-card.placeholder .kpi-num{color:#8A8681;font-size:32px;font-style:italic}
+
+.helper-bar{background:#FFF7EC;border:1px dashed #C9A86A;border-radius:10px;padding:14px 20px;font-size:13px;color:#5A4A20;margin-bottom:28px;display:flex;align-items:flex-start;gap:10px}
+.helper-bar strong{color:#3A2E10}
+.helper-bar .icon{font-size:16px;line-height:1.2;flex-shrink:0}
+
+.footer{color:#8A8681;font-size:12px;margin-top:48px;border-top:1px solid #E6DFD4;padding-top:18px;text-align:center}
+
+@media (max-width:880px){
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .hero h1{font-size:32px}
+}
+@media (max-width:560px){
+  .kpi-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <span class="brand-left">FranDev · The Helm</span>
+  <a class="back" href="./">← FranFiles</a>
+</div>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="wordmark">FranDev · Mainstream Boutique</div>
+    <h1>The Helm</h1>
+    <p class="tag">Where the captain watches the gauges. Pipeline + intake health, refreshed weekly.</p>
+    <p class="meta">At a Glance · Iteration 1 · Updated weekly from FranConnect</p>
+  </div>
+
+  <div class="helper-bar">
+    <span class="icon">⚓</span>
+    <div><strong>First-iteration view.</strong> The numbers below pull from a dedicated FC report (build TBD). For now, fields show placeholder values until the report is wired up. Older detail sections from the previous CEO Dashboard remain on the legacy page for the next iteration.</div>
+  </div>
+
+  <div class="section-label">At a Glance</div>
+
+  <div class="kpi-grid">
+
+    <div class="kpi-card placeholder">
+      <div class="kpi-eye">Pipeline</div>
+      <div class="kpi-num">—</div>
+      <div class="kpi-name">Total Pipeline</div>
+      <p class="kpi-sub">All active leads currently in any stage Intake → Closing.</p>
+    </div>
+
+    <div class="kpi-card placeholder">
+      <div class="kpi-eye">Re-engagement</div>
+      <div class="kpi-num">—</div>
+      <div class="kpi-name">Lead Re-Engagement Working</div>
+      <p class="kpi-sub">Leads currently in active re-engagement (status = Re-engagement Working).</p>
+    </div>
+
+    <div class="kpi-card placeholder">
+      <div class="kpi-eye">New · Last 30 days</div>
+      <div class="kpi-num">—</div>
+      <div class="kpi-name">New Leads Engaged</div>
+      <p class="kpi-sub">Leads who submitted the franchise inquiry form in the past 30 days, with the <em>2026 New Website Form Submission</em> workflow (Clay or Katie) triggered.</p>
+    </div>
+
+    <div class="kpi-card placeholder">
+      <div class="kpi-eye">Intake · Weekly</div>
+      <div class="kpi-num">—</div>
+      <div class="kpi-name">Intro Calls Conducted</div>
+      <p class="kpi-sub">Discovery calls completed this week.</p>
+    </div>
+
+    <div class="kpi-card placeholder">
+      <div class="kpi-eye">Intake · Weekly</div>
+      <div class="kpi-num">—</div>
+      <div class="kpi-name">Applications Sent</div>
+      <p class="kpi-sub">Leads moved to "Application Sent" status this week (the <em>2026 Application Sent to Lead</em> email fires here).</p>
+    </div>
+
+    <div class="kpi-card placeholder">
+      <div class="kpi-eye">Intake · Weekly</div>
+      <div class="kpi-num">—</div>
+      <div class="kpi-name">Applications Completed</div>
+      <p class="kpi-sub">Leads who submitted the Franchise Partner Application web form this week.</p>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    Mainstream Boutique · FranDev · The Helm · Aggregated values; full lead-level detail in FranConnect.
+  </div>
+
+</div>
+</body>
+</html>
