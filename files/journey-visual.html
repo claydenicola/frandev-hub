@@ -1,0 +1,1137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<script src="../gate.js"></script>
+<title>Journey Visual — Mainstream Boutique FranDev</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&family=Lato:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#FAF7F2;color:#2B2A28;font-family:Lato,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.55}
+  a{color:inherit}
+
+  .topbar{background:#fff;border-bottom:1px solid #E6DFD4;padding:10px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+  .topbar .brand-left{font-size:12px;color:#8A8681;letter-spacing:2px;text-transform:uppercase;font-weight:700}
+  .topbar .brand-right{font-size:12px;color:#8A8681}
+
+  .wrap{max-width:1180px;margin:0 auto;padding:40px 28px 60px}
+
+  .hero{background:linear-gradient(135deg,#F5B8B8 0%,#EF9F9F 100%);border:1px solid #B55D5D;border-radius:12px;padding:28px 30px;margin-bottom:24px;color:#3A1F1F}
+  .hero h1{font-family:Cardo,'Times New Roman',Georgia,serif;font-size:34px;font-weight:400;margin:0 0 8px;letter-spacing:-0.01em;color:#3A1F1F}
+  .hero .tag{color:#5A3535;margin:0;font-size:14px;font-style:italic}
+  .hero .meta{color:#5A3535;margin:10px 0 0;font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase}
+
+  /* Toggle */
+  .state-toggle{display:flex;align-items:center;justify-content:center;gap:10px;margin:0 0 32px;background:#fff;border:1px solid #E6DFD4;border-radius:999px;padding:6px;max-width:560px;margin-left:auto;margin-right:auto}
+  .state-toggle button{flex:1;background:transparent;border:none;padding:11px 18px;font-family:Lato,sans-serif;font-size:12.5px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;color:#8A8681;border-radius:999px;cursor:pointer;transition:background .15s,color .15s}
+  .state-toggle button.active{background:#B55D5D;color:#fff}
+  .state-toggle button:not(.active):hover{color:#2B2A28}
+  .state-toggle .sub{display:block;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-top:2px;opacity:.75}
+
+  /* State gating */
+  body[data-state="current"] .for-future{display:none}
+  body[data-state="future"] .for-current{display:none}
+
+  .state-note{text-align:center;font-size:13px;color:#8A8681;margin:-16px 0 28px;font-style:italic}
+  body[data-state="current"] .state-note.for-current{display:block}
+  body[data-state="future"] .state-note.for-future{display:block}
+
+  /* Stage */
+  .stage{margin:0 0 50px;background:#fff;border:1px solid #E6DFD4;border-radius:14px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.02)}
+  .stage-head{background:linear-gradient(135deg,#FDF9F4 0%,#F5ECE3 100%);border-bottom:1px solid #E6DFD4;padding:20px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .stage-head .stage-left{display:flex;align-items:center;gap:16px}
+  .stage-num{font-family:Cardo,serif;font-size:38px;font-weight:700;color:#EF9F9F;line-height:1;min-width:44px;text-align:center}
+  .stage-title{display:block}
+  .stage-title .label{font-size:11px;font-weight:700;letter-spacing:2px;color:#8A8681;text-transform:uppercase}
+  .stage-title .name{font-family:Cardo,serif;font-size:24px;font-weight:700;color:#171717;margin-top:2px;letter-spacing:-0.005em}
+  .stage-q{font-size:13px;color:#5A5753;font-style:italic;max-width:420px;text-align:right}
+
+  /* Column headers */
+  .col-heads{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid #E6DFD4;position:sticky;top:45px;background:#fff;z-index:10}
+  .col-head{padding:14px 22px;text-align:center}
+  .col-head:first-child{background:#FDF9F4;border-right:1px solid #E6DFD4}
+  .col-head:last-child{background:#FBF2F2}
+  .col-head .eyebrow{font-size:10.5px;letter-spacing:2px;color:#8A8681;text-transform:uppercase;font-weight:700}
+  .col-head h3{font-family:Cardo,serif;font-size:17px;font-weight:700;color:#171717;margin:4px 0 0;letter-spacing:-0.005em}
+  .col-head .sub{font-size:11.5px;color:#5A5753;margin-top:2px;font-style:italic}
+
+  /* Row grid */
+  .row{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid #F0EBE3;position:relative;align-items:stretch}
+  .row:last-child{border-bottom:none}
+  .cell{padding:22px 24px;position:relative}
+  .cell.sp{background:#FDFBF7;border-right:1px solid #F0EBE3}
+  .cell.lead{background:#FFFDFD}
+
+  .row .step-num{position:absolute;left:-2px;top:22px;background:#EF9F9F;color:#fff;font-family:Lato,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:1px;padding:2px 9px 2px 11px;border-radius:0 10px 10px 0;text-transform:uppercase}
+
+  .cell .eye{font-size:10px;font-weight:700;letter-spacing:1.8px;color:#8A8681;text-transform:uppercase;margin:0 0 8px}
+  .cell .hd{font-family:Cardo,serif;font-size:17px;font-weight:700;color:#171717;margin:0 0 8px;line-height:1.3}
+  .cell .txt{font-size:13.5px;color:#2B2A28;margin:0 0 10px}
+  .cell .meta{font-size:12px;color:#8A8681;margin-top:8px;font-style:italic}
+
+  .pill{display:inline-block;font-size:10px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;padding:3px 9px;border-radius:12px;margin-right:6px;margin-bottom:6px}
+  .pill.auto{background:#EDE7F6;color:#5E4B8B}
+  .pill.manual{background:#FCE4D6;color:#A04C1F}
+  .pill.tool{background:#E6DFD4;color:#5A5753}
+
+  /* Artifact previews */
+  .art{margin-top:10px}
+  .art.email{background:#fff;border:1px solid #E6DFD4;border-radius:8px;padding:13px 15px;font-size:12.5px;box-shadow:0 1px 2px rgba(0,0,0,.02)}
+  .art.email .from{font-size:11px;color:#8A8681;text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:3px}
+  .art.email .subj{font-family:Cardo,serif;font-size:14.5px;font-weight:700;color:#171717;margin-bottom:6px}
+  .art.email .body{color:#2B2A28;font-size:12.5px;line-height:1.5}
+  .art.email .body em{color:#8A8681;font-style:italic}
+
+  .art.sms{max-width:320px;margin-top:12px}
+  .art.sms .bubble{background:#EDEDEE;border-radius:18px;padding:10px 14px;font-size:13px;color:#1F1F1F;line-height:1.4;margin-bottom:4px;position:relative;max-width:100%}
+  .art.sms .bubble.out{background:#3B82F6;color:#fff;margin-left:auto;text-align:left}
+  .art.sms .meta{font-size:10.5px;color:#8A8681;margin-top:4px;text-align:center}
+
+  .art.call{background:#FDF9F4;border:1px solid #EAE3DF;border-radius:8px;padding:13px 15px;display:flex;align-items:center;gap:12px}
+  .art.call .icon{width:36px;height:36px;border-radius:50%;background:#EF9F9F;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;flex-shrink:0}
+  .art.call .info{font-size:13px;color:#2B2A28}
+  .art.call .info .t{font-weight:700;color:#171717;margin-bottom:1px}
+  .art.call .info .s{font-size:11.5px;color:#8A8681}
+
+  .art.doc{background:#fff;border:1px solid #E6DFD4;border-radius:8px;padding:13px 15px;display:flex;align-items:center;gap:12px}
+  .art.doc .icon{width:34px;height:40px;background:#B55D5D;color:#fff;border-radius:4px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:9.5px;letter-spacing:.5px;flex-shrink:0}
+  .art.doc .info{font-size:13px}
+  .art.doc .info .t{font-weight:700;color:#171717;margin-bottom:1px}
+  .art.doc .info .s{font-size:11.5px;color:#8A8681}
+
+  .art.page{background:#fff;border:1px solid #E6DFD4;border-radius:8px;padding:12px 14px}
+  .art.page .url{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:11px;color:#8A8681;margin-bottom:6px}
+  .art.page .t{font-weight:700;color:#171717;font-size:13.5px;margin-bottom:3px}
+  .art.page .s{font-size:12px;color:#5A5753}
+
+  .art.calendly{background:#fff;border:1px solid #E6DFD4;border-radius:8px;padding:12px 14px;display:flex;align-items:center;gap:12px}
+  .art.calendly .logo{width:34px;height:34px;background:#006BFF;color:#fff;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+  .art.calendly .info .t{font-weight:700;color:#171717;font-size:13.5px}
+  .art.calendly .info .s{font-size:11.5px;color:#8A8681}
+
+  /* Emotional strip */
+  .emo-strip{display:grid;grid-template-columns:1fr 1fr;background:#F5ECE3;border-top:1px solid #E6DFD4}
+  .emo-strip .emo{padding:14px 24px;font-size:12.5px;color:#5A5753}
+  .emo-strip .emo:first-child{border-right:1px solid #E6DFD4;background:#F5ECE3}
+  .emo-strip .emo:last-child{background:#F5E1E1}
+  .emo-strip .emo .lbl{font-size:10px;font-weight:700;letter-spacing:1.8px;color:#8A8681;text-transform:uppercase;margin-bottom:4px;display:block}
+  .emo-strip .emo .arc{font-family:Cardo,serif;font-style:italic;font-size:14.5px;color:#171717;line-height:1.4}
+  .emo-strip .emo .mot{margin-top:6px;font-size:12px;color:#5A5753}
+  .emo-strip .emo .mot b{color:#B55D5D;text-transform:uppercase;letter-spacing:.5px;font-size:10.5px;font-weight:700;margin-right:6px}
+
+  /* TBD cell (future state placeholder) */
+  .cell.tbd{background:repeating-linear-gradient(45deg,#FDFBF7,#FDFBF7 8px,#F5ECE3 8px,#F5ECE3 16px);border:2px dashed #C9C2B8;border-radius:8px;margin:14px;padding:18px 20px}
+  .cell.tbd .hd{color:#8A8681;font-style:italic}
+  .cell.tbd .txt{color:#8A8681}
+
+  /* Legend */
+  .legend{background:#fff;border:1px solid #E6DFD4;border-radius:10px;padding:16px 20px;margin:0 0 28px;display:flex;gap:24px;flex-wrap:wrap;font-size:12px;color:#5A5753}
+  .legend .li{display:flex;align-items:center;gap:8px}
+  .legend .sw{width:16px;height:16px;border-radius:4px;border:1px solid #E6DFD4}
+  .legend .sw.auto{background:#EDE7F6;border-color:#C6B8DC}
+  .legend .sw.manual{background:#FCE4D6;border-color:#E8B899}
+  .legend .sw.sp{background:#FDFBF7}
+  .legend .sw.lead{background:#FBF2F2}
+
+  .footer{color:#8A8681;font-size:12px;margin-top:40px;border-top:1px solid #E6DFD4;padding-top:16px;text-align:center}
+
+  @media (max-width:820px){
+    .col-heads, .row{grid-template-columns:1fr}
+    .cell.sp{border-right:none;border-bottom:1px solid #F0EBE3}
+    .col-head:first-child{border-right:none;border-bottom:1px solid #E6DFD4}
+    .stage-q{text-align:left}
+    .emo-strip{grid-template-columns:1fr}
+    .emo-strip .emo:first-child{border-right:none;border-bottom:1px solid #E6DFD4}
+  }
+</style>
+</head>
+<body data-state="current">
+
+<div class="topbar">
+  <span class="brand-left">Journey Visual · Mainstream Boutique</span>
+  <span class="brand-right">Clay DeNicola · FranDev</span>
+</div>
+
+<div class="wrap">
+
+  <p style="margin:0 0 14px;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;"><a href="./journey-maps.html" style="color:#8A8681;text-decoration:none;font-weight:600;">← Journey Maps Project</a></p>
+
+  <div class="hero">
+    <h1>The Franchise Journey — Side by Side</h1>
+    <p class="tag">Left: what the sales team does. Right: what the lead sees, hears, and receives.</p>
+    <p class="meta">5 Stages · Intake → Nurture · Living Document</p>
+  </div>
+
+  <div class="state-toggle" role="tablist">
+    <button class="active" data-state="current" onclick="setState('current')">
+      Current State
+      <span class="sub">Today · Clay-only</span>
+    </button>
+    <button data-state="future" onclick="setState('future')">
+      Future State
+      <span class="sub">Post-Katie integration</span>
+    </button>
+  </div>
+
+  <p class="state-note for-current">Single-threaded on Clay today. Every activity below sits on one desk. Future state shows where Katie takes lead-facing ownership.</p>
+  <p class="state-note for-future">Katie owns lead-facing work Intake → Closing. Clay retains legal, FDD, agreements, real estate, and lease. Dashed cells = still to be designed together.</p>
+
+  <div class="legend">
+    <div class="li"><span class="sw sp"></span> Salesperson activity</div>
+    <div class="li"><span class="sw lead"></span> Lead experience</div>
+    <div class="li"><span class="sw auto"></span> Automated</div>
+    <div class="li"><span class="sw manual"></span> Manual / personal touch</div>
+  </div>
+
+  <!-- ================= STAGE 1 — INTAKE ================= -->
+  <div class="stage" id="stage-1">
+    <div class="stage-head">
+      <div class="stage-left">
+        <div class="stage-num">01</div>
+        <div class="stage-title">
+          <span class="label">Stage 1</span>
+          <span class="name">Intake</span>
+        </div>
+      </div>
+      <div class="stage-q">"Is this a real prospect worth our time?"</div>
+    </div>
+
+    <div class="col-heads">
+      <div class="col-head">
+        <div class="eyebrow for-current">Salesperson</div>
+        <div class="eyebrow for-future">Salesperson</div>
+        <h3 class="for-current">What Clay does</h3>
+        <h3 class="for-future">What Katie does</h3>
+        <div class="sub for-current">Sole owner of every step</div>
+        <div class="sub for-future">Primary lead-facing owner</div>
+      </div>
+      <div class="col-head">
+        <div class="eyebrow">Lead</div>
+        <h3>What she sees, hears, receives</h3>
+        <div class="sub">Touchpoints and artifacts as she experiences them</div>
+      </div>
+    </div>
+
+    <!-- Step 1 -->
+    <div class="row">
+      <span class="step-num">Step 1</span>
+      <div class="cell sp">
+        <div class="eye">Trigger</div>
+        <div class="hd">Inbound form submission received</div>
+        <span class="pill auto">Automated</span>
+        <span class="pill tool">FranConnect</span>
+        <p class="txt for-current">Lead drops into FC via the franchise website form. Clay sees the new lead in the queue.</p>
+        <p class="txt for-future">Lead drops into FC. Katie is assigned as primary; Clay is cc'd for awareness but doesn't touch it.</p>
+      </div>
+      <div class="cell lead">
+        <div class="eye">Website</div>
+        <div class="hd">Fills out the franchise inquiry form</div>
+        <p class="txt">Submits her info on the franchise website. Sees a brief "thanks — we'll be in touch" confirmation on screen.</p>
+        <div class="art page">
+          <div class="url">mainstreamboutique.com/pages/franchise</div>
+          <div class="t">Franchise inquiry form</div>
+          <div class="s">Name, phone, email, market of interest, liquid capital range</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="row">
+      <span class="step-num">Step 2</span>
+      <div class="cell sp">
+        <div class="eye">Configure</div>
+        <div class="hd">Welcome sequence triggered in Campaign Center</div>
+        <span class="pill auto">Automated</span>
+        <span class="pill tool">FC Campaign Center</span>
+        <p class="txt">Workflow fires the welcome email + welcome SMS automatically the moment the form hits FC. No human action required at this step.</p>
+      </div>
+      <div class="cell lead">
+        <div class="eye">Email · Minutes after submit</div>
+        <div class="hd">Automated welcome email arrives</div>
+        <div class="art email">
+          <div class="from">From · Mainstream Boutique Franchise Team</div>
+          <div class="subj">Thanks for your interest in Mainstream Boutique</div>
+          <div class="body">Hi [First Name], thanks for reaching out — we'll be in touch within 24–48 hours to tell you more about what it looks like to open a Mainstream Boutique in your community. <em>[Template copy preview — canonical version lives in FC Campaign Center]</em></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="row">
+      <span class="step-num">Step 3</span>
+      <div class="cell sp">
+        <div class="eye">Automated SMS</div>
+        <div class="hd">Welcome SMS sent</div>
+        <span class="pill auto">Automated</span>
+        <span class="pill tool">FC Campaign Center</span>
+        <p class="txt">SMS fires shortly after the welcome email so she sees a second-channel signal we received her form.</p>
+      </div>
+      <div class="cell lead">
+        <div class="eye">SMS · Minutes after submit</div>
+        <div class="hd">Welcome text lands on her phone</div>
+        <div class="art sms">
+          <div class="bubble">Hi [First Name] — this is the Mainstream Boutique franchise team. Thanks for the inquiry! We'll be reaching out personally in the next day or two. <em>[SMS preview]</em></div>
+          <div class="meta">(555) 555-5555 · Mainstream Boutique</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="row">
+      <span class="step-num">Step 4</span>
+      <div class="cell sp">
+        <div class="eye for-current">Manual · Clay</div>
+        <div class="eye for-future">Manual · Katie</div>
+        <div class="hd for-current">Clay reviews the lead and sends a personal follow-up within 24–48 hrs</div>
+        <div class="hd for-future">Katie sends a personal follow-up within 24 hrs</div>
+        <span class="pill manual">Manual</span>
+        <p class="txt for-current">Clay reads the form data, scans for obvious fit signals, and writes a personal email. Realistically slips to 48–72 hrs when Clay is pulled into Closing or Site/Lease work.</p>
+        <p class="txt for-future">Katie's full attention is on the inbound funnel. Personal outreach lands same-day or next-day and leads with her 2005 franchisee story — operator-to-operator framing from the first touch.</p>
+        <p class="meta for-current"><strong>Moment of truth.</strong> First personal email. Trust is won or lost here.</p>
+        <p class="meta for-future"><strong>Moment of truth — elevated.</strong> Katie's operator story lands before any pitch.</p>
+      </div>
+      <div class="cell lead">
+        <div class="eye">Email · 24–48 hrs later</div>
+        <div class="hd for-current">First personal email from Clay</div>
+        <div class="hd for-future">First personal email from Katie</div>
+        <div class="art email for-current">
+          <div class="from">From · Clay DeNicola, VP FranDev</div>
+          <div class="subj">Great to hear from you, [First Name]</div>
+          <div class="body">Thanks for reaching out about Mainstream Boutique. I'd love to learn a little more about what's drawing you to franchise ownership and share what it looks like on our side. Here's my Calendly to grab 30 minutes. <em>[Template preview — canonical lives in FC]</em></div>
+        </div>
+        <div class="art email for-future">
+          <div class="from">From · Katie Skrove, Director FranDev</div>
+          <div class="subj">I opened a Mainstream in 2005 — would love to chat</div>
+          <div class="body">Hi [First Name], I'm Katie. Before I joined the home office team, I opened a Mainstream Boutique back in 2005 — so I know the questions you're probably sitting with right now. If you want, grab 30 minutes on my calendar and we'll just talk. No pitch. <em>[Template preview — Katie's story-led version]</em></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 5 -->
+    <div class="row">
+      <span class="step-num">Step 5</span>
+      <div class="cell sp">
+        <div class="eye">Calendly</div>
+        <div class="hd for-current">Calendly link shared in personal email</div>
+        <div class="hd for-future">Katie's Calendly shared in first email</div>
+        <span class="pill tool">Calendly</span>
+        <p class="txt">Low-friction self-booking. Lead can pick a time without back-and-forth scheduling.</p>
+      </div>
+      <div class="cell lead">
+        <div class="eye">Calendly</div>
+        <div class="hd">Books intro call — or doesn't</div>
+        <p class="txt">If she books, she lands on a confirmed slot with calendar invite. If she doesn't book, she stays in the queue for another personal nudge.</p>
+        <div class="art calendly">
+          <div class="logo">C</div>
+          <div class="info">
+            <div class="t for-current">Intro call with Clay — 30 min</div>
+            <div class="t for-future">Intro call with Katie — 30 min</div>
+            <div class="s">Pick a time · Confirmation + calendar invite sent on booking</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 6 -->
+    <div class="row">
+      <span class="step-num">Step 6</span>
+      <div class="cell sp">
+        <div class="eye">Live</div>
+        <div class="hd for-current">Clay conducts the intro call</div>
+        <div class="hd for-future">Katie conducts the intro call</div>
+        <span class="pill manual">Manual · Live</span>
+        <p class="txt for-current">30 minutes. Clay walks her through the brand story, how franchising works with us, and answers her questions. Decides whether to move her to FDD.</p>
+        <p class="txt for-future">30 minutes, operator-to-operator. Katie leads with lived experience, sets expectations on the full journey (not just this call), and gives her the "here's what happens next" roadmap before hanging up.</p>
+      </div>
+      <div class="cell lead">
+        <div class="eye">Intro call · 30 min</div>
+        <div class="hd for-current">First real conversation with the brand</div>
+        <div class="hd for-future">First real conversation — with an operator</div>
+        <p class="txt for-current">Her first human, voice-level impression of Mainstream Boutique. Sets the tone for the rest of the journey.</p>
+        <p class="txt for-future">Leaves the call knowing what happens next, what the timeline looks like, and that the person on the other side has actually done what she's thinking about doing.</p>
+        <div class="art call">
+          <div class="icon">☎</div>
+          <div class="info">
+            <div class="t for-current">Intro call with Clay DeNicola</div>
+            <div class="t for-future">Intro call with Katie Skrove</div>
+            <div class="s">Zoom or phone · 30 minutes · Brand overview + mutual fit</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 7 -->
+    <div class="row">
+      <span class="step-num">Step 7</span>
+      <div class="cell sp">
+        <div class="eye">FDD delivery</div>
+        <div class="hd for-current">Clay sends the FDD via FC Portal</div>
+        <div class="hd for-future">Katie sends the FDD — with a "what to look for" guide</div>
+        <span class="pill tool">FC FDD Portal</span>
+        <span class="pill manual for-future">Human framing</span>
+        <p class="txt for-current">Clay generates the FDD package in the portal. Lead receives the portal link by email. Currently arrives without much context around it.</p>
+        <p class="txt for-future">Katie delivers the FDD wrapped in human framing — a short guide on what to read first, what the legal language means in plain English, and an open invitation to ask questions.</p>
+        <p class="meta for-current"><strong>Silent-disengagement risk.</strong> FDD volume overwhelms her if she opens it cold.</p>
+      </div>
+      <div class="cell lead">
+        <div class="eye">Document · FDD Portal</div>
+        <div class="hd">FDD package arrives by email</div>
+        <div class="art doc">
+          <div class="icon">FDD</div>
+          <div class="info">
+            <div class="t">Mainstream Boutique FDD 2026</div>
+            <div class="s for-current">FC Portal link · ~200+ pages · Receipt signature required</div>
+            <div class="s for-future">FC Portal link + "Reading Your FDD" guide · Plain-language intro from Katie</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 8 -->
+    <div class="row">
+      <span class="step-num">Step 8</span>
+      <div class="cell sp">
+        <div class="eye">Compliance</div>
+        <div class="hd">Monitor FDD receipt signature</div>
+        <span class="pill tool">FC FDD Portal</span>
+        <span class="pill auto">Automated tracking</span>
+        <p class="txt for-current">Clay watches for the signed receipt. If it doesn't come in, he follows up manually — when he remembers to.</p>
+        <p class="txt for-future">Katie owns receipt follow-up. Proactive re-engagement workflow fires automatically if she stalls, so nothing falls through silently.</p>
+      </div>
+      <div class="cell lead">
+        <div class="eye">Signature</div>
+        <div class="hd">Signs FDD receipt — or goes quiet</div>
+        <p class="txt">Opens the FDD (or doesn't). Signs the receipt (or doesn't). This is where the cold FDD drop creates silent drop-offs in the current state.</p>
+        <div class="art doc">
+          <div class="icon">SIG</div>
+          <div class="info">
+            <div class="t">FDD Receipt · DocuSign</div>
+            <div class="s">Confirms receipt of the FDD · Required before Qualifying</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Emotional strip -->
+    <div class="emo-strip">
+      <div class="emo">
+        <span class="lbl">Salesperson load</span>
+        <div class="arc for-current">Intake runs on one desk. Clay's attention is split every time another stage lights up.</div>
+        <div class="arc for-future">Intake runs full-time on Katie's desk. Clay is available for judgment calls, not daily ops.</div>
+      </div>
+      <div class="emo">
+        <span class="lbl">Lead's emotional arc</span>
+        <div class="arc for-current">Curious → hopeful → uncertain (during silence) → overwhelmed by FDD → skeptical if comms feel canned.</div>
+        <div class="arc for-future">Curious → seen → reassured → engaged. She leaves the intro call knowing what happens next.</div>
+        <div class="mot"><b>Moment of truth</b>The first personal email from the team.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= STAGE 2 — QUALIFYING ================= -->
+  <div class="stage" id="stage-2">
+    <div class="stage-head">
+      <div class="stage-left">
+        <div class="stage-num">02</div>
+        <div class="stage-title">
+          <span class="label">Stage 2</span>
+          <span class="name">Qualifying</span>
+        </div>
+      </div>
+      <div class="stage-q">"Can this person fund, open, and operate successfully?"</div>
+    </div>
+
+    <div class="col-heads">
+      <div class="col-head">
+        <div class="eyebrow">Salesperson</div>
+        <h3 class="for-current">What Clay does</h3>
+        <h3 class="for-future">What Katie does · Clay consultative</h3>
+        <div class="sub for-current">Sole owner — qualifying, assessment, fit</div>
+        <div class="sub for-future">Katie runs cadence; Clay reviews application + financial before 3Q call</div>
+      </div>
+      <div class="col-head">
+        <div class="eyebrow">Lead</div>
+        <h3>What she sees, hears, receives</h3>
+        <div class="sub">Disclosure, interviews, family conversations intensify</div>
+      </div>
+    </div>
+
+    <!-- Step 1 -->
+    <div class="row">
+      <span class="step-num">Step 1</span>
+      <div class="cell sp">
+        <div class="eye">Schedule</div>
+        <div class="hd">Schedule FDD review call</div>
+        <span class="pill tool">Calendly · FC</span>
+        <p class="txt">Once FDD receipt is signed, schedule a live walkthrough to unpack questions.</p>
+      </div>
+      <div class="cell lead">
+        <div class="eye">Calendar invite</div>
+        <div class="hd">FDD review call on her calendar</div>
+        <p class="txt">She gets a named block of time to ask everything she's been worried about in the FDD.</p>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="row">
+      <span class="step-num">Step 2</span>
+      <div class="cell sp">
+        <div class="eye">Live</div>
+        <div class="hd for-current">Clay runs the FDD review call</div>
+        <div class="hd for-future">Katie runs the FDD review call</div>
+        <span class="pill manual">Manual · Live</span>
+        <p class="txt for-current">Walks her through the sections that raise the most questions and addresses specific concerns she surfaces.</p>
+        <p class="txt for-future">Katie runs it as an operator who's read it from the franchisee side. Clay joins if a legal question needs him.</p>
+      </div>
+      <div class="cell lead">
+        <div class="eye">FDD review · 45–60 min</div>
+        <div class="hd">Her FDD questions get answered</div>
+        <div class="art call">
+          <div class="icon">☎</div>
+          <div class="info">
+            <div class="t for-current">FDD review with Clay</div>
+            <div class="t for-future">FDD review with Katie</div>
+            <div class="s">Walk-through + Q&amp;A on specific sections</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="row">
+      <span class="step-num">Step 3</span>
+      <div class="cell sp">
+        <div class="eye">Send</div>
+        <div class="hd">Send application + financial disclosure form</div>
+        <span class="pill tool">FC · Forms</span>
+        <p class="txt for-current">Clay sends the forms after FDD review. Today this arrives with minimal framing around why we're asking.</p>
+        <p class="txt for-future">Katie frames the disclosure as "helping us help you" — contextualized with how we use the info, and what it unlocks for her.</p>
+      </div>
+      <div class="cell lead">
+        <div class="eye">Email · Forms</div>
+        <div class="hd for-current">Application + financial disclosure land in her inbox</div>
+        <div class="hd for-future">Application + disclosure land — with Katie's reassurance</div>
+        <div class="art doc">
+          <div class="icon">APP</div>
+          <div class="info">
+            <div class="t">Franchise Application + Financial Disclosure</div>
+            <div class="s for-current">Forms arrive · Return when complete</div>
+            <div class="s for-future">Forms + context note from Katie · "Here's why we ask"</div>
+          </div>
+        </div>
+        <p class="meta for-current"><strong>Moment of truth.</strong> Financial disclosure feels exposing.</p>
+        <p class="meta for-future"><strong>Moment of truth — reframed.</strong> Shared commitment, not a credit check.</p>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="row">
+      <span class="step-num">Step 4</span>
+      <div class="cell sp">
+        <div class="eye">Review</div>
+        <div class="hd for-current">Clay reviews returned application</div>
+        <div class="hd for-future">Clay reviews returned application before the 3Q call</div>
+        <span class="pill manual">Manual review</span>
+        <p class="txt for-current">Reads for funding, experience, fit signals, and red flags.</p>
+        <p class="txt for-future">Clay sanity-checks funding and fit. Katie continues owning the lead relationship while Clay's eyes are on the numbers.</p>
+      </div>
+      <div class="cell lead">
+        <div class="eye">Waiting</div>
+        <div class="hd">Submits forms, waits for feedback</div>
+        <p class="txt for-current">Quiet window. If outreach goes silent here, doubt starts to build.</p>
+        <p class="txt for-future">Katie proactively checks in so the quiet window doesn't feel quiet.</p>
+      </div>
+    </div>
+
+    <!-- Step 5 -->
+    <div class="row">
+      <span class="step-num">Step 5</span>
+      <div class="cell sp">
+        <div class="eye">3Q call</div>
+        <div class="hd for-current">Clay runs the 3Q question call</div>
+        <div class="hd for-future">Katie runs the 3Q — Clay joins when needed</div>
+        <span class="pill manual">Manual · Live</span>
+        <p class="txt for-current">Deep-dive on the Three Questions framework. Currently feels like an interview to the candidate.</p>
+        <p class="txt for-future">Katie reframes it as mutual discovery — we're both figuring out whether this is a fit.</p>
+      </div>
+      <div class="cell lead">
+        <div class="eye">3Q call · 60 min</div>
+        <div class="hd">Structured conversation on fit, funding, and fear</div>
+        <div class="art call">
+          <div class="icon">☎</div>
+          <div class="info">
+            <div class="t for-current">3Q call with Clay</div>
+            <div class="t for-future">3Q call with Katie</div>
+            <div class="s">Three Questions · Fit, funding, fear</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 6 -->
+    <div class="row">
+      <span class="step-num">Step 6</span>
+      <div class="cell sp">
+        <div class="eye">Assess</div>
+        <div class="hd for-current">Clay runs interview assessments + confirms realistic expectations</div>
+        <div class="hd for-future">Katie runs interview assessments; sets timeline expectations</div>
+        <span class="pill manual">Manual</span>
+        <p class="txt">Last gate before Closing. Confirm fit, financing, and that she understands what year 1 looks like.</p>
+      </div>
+      <div class="cell lead">
+        <div class="eye">Clarity</div>
+        <div class="hd for-current">She gets a realistic picture of year 1</div>
+        <div class="hd for-future">She gets a tracker showing where she is and what's next</div>
+        <p class="txt for-current">Currently delivered verbally on the 3Q call. Easy to forget the details afterward.</p>
+        <p class="txt for-future">Written tracker + next-steps email so she never has to guess where she stands.</p>
+      </div>
+    </div>
+
+    <!-- Emotional strip -->
+    <div class="emo-strip">
+      <div class="emo">
+        <span class="lbl">Salesperson load</span>
+        <div class="arc for-current">Qualifying eats Clay's calendar while Intake, Closing, and Site/Lease work continue in parallel.</div>
+        <div class="arc for-future">Katie drives the cadence. Clay plugs in for funding/fit review and deep legal questions only.</div>
+      </div>
+      <div class="emo">
+        <span class="lbl">Lead's emotional arc</span>
+        <div class="arc for-current">Studious → anxious (disclosure) → excited (picturing the store) → overwhelmed by scope.</div>
+        <div class="arc for-future">Confident → supported → excited. Family conversations feel sharable because the tracker gives her language.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= STAGE 3 — CLOSING ================= -->
+  <div class="stage" id="stage-3">
+    <div class="stage-head">
+      <div class="stage-left">
+        <div class="stage-num">03</div>
+        <div class="stage-title">
+          <span class="label">Stage 3</span>
+          <span class="name">Closing</span>
+        </div>
+      </div>
+      <div class="stage-q">"Should we formally award them a franchise?"</div>
+    </div>
+
+    <div class="col-heads">
+      <div class="col-head">
+        <div class="eyebrow">Salesperson</div>
+        <h3 class="for-current">What Clay does</h3>
+        <h3 class="for-future">Katie for lead · Clay for FDD + agreements</h3>
+        <div class="sub for-current">Owns everything — validation, approval, legal, agreements</div>
+        <div class="sub for-future">Katie drives lead experience; Clay owns FDD 16-day + agreement drafting</div>
+      </div>
+      <div class="col-head">
+        <div class="eyebrow">Lead</div>
+        <h3>What she sees, hears, receives</h3>
+        <div class="sub">Funding proof → waiting on approval → award → signing</div>
+      </div>
+    </div>
+
+    <!-- Step 1 -->
+    <div class="row">
+      <span class="step-num">Step 1</span>
+      <div class="cell sp">
+        <div class="eye">Validate</div>
+        <div class="hd for-current">Clay validates funding (proof of funds / pre-approval)</div>
+        <div class="hd for-future">Katie runs funding-validation conversations</div>
+        <span class="pill manual">Manual</span>
+        <p class="txt for-current">Requests proof-of-funds docs or lender pre-approval. Reviews against the capital requirement.</p>
+        <p class="txt for-future">Katie handles the conversation side; Clay confirms the numbers clear.</p>
+      </div>
+      <div class="cell lead">
+        <div class="eye">Request · Email</div>
+        <div class="hd">Funding request arrives</div>
+        <div class="art email">
+          <div class="from for-current">From · Clay DeNicola</div>
+          <div class="from for-future">From · Katie Skrove</div>
+          <div class="subj">Next step: proof of funds</div>
+          <div class="body">Hi [First Name], to move you into formal award consideration, we need to confirm funding. Here's what you can share — bank letter, brokerage statement, or lender pre-approval. <em>[Template preview]</em></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="row">
+      <span class="step-num">Step 2</span>
+      <div class="cell sp">
+        <div class="eye">Coordinate</div>
+        <div class="hd for-current">Clay coordinates validation calls with existing franchisees</div>
+        <div class="hd for-future">Katie coordinates peer validation calls</div>
+        <span class="pill manual">Manual</span>
+        <p class="txt">Connects the lead with current franchisees who match her profile. Essential trust-building step.</p>
+      </div>
+      <div class="cell lead">
+        <div class="eye">Validation calls</div>
+        <div class="hd">Peer-to-peer conversations with existing owners</div>
+        <p class="txt">She gets to talk to women who've walked this path — often the most decisive touchpoint in the whole journey.</p>
+        <div class="art call">
+          <div class="icon">👥</div>
+          <div class="info">
+            <div class="t">Validation calls with existing franchisees</div>
+            <div class="s">Peer operator conversations · 30–45 min each</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="row">
+      <span class="step-num">Step 3</span>
+      <div class="cell sp">
+        <div class="eye">Internal</div>
+        <div class="hd for-current">Clay presents candidate to management for approval</div>
+        <div class="hd for-future">Katie preps candidate; Clay presents to management</div>
+        <span class="pill manual">Manual · Internal</span>
+        <p class="txt for-current">Internal review meeting. Decision made. Currently no communication to the lead during this window.</p>
+        <p class="txt for-future">Lead gets an explicit "we're presenting you on [date], you'll hear from us within 48 hrs" note from Katie.</p>
+      </div>
+      <div class="cell lead">
+        <div class="eye">Waiting</div>
+        <div class="hd for-current">Silent waiting window</div>
+        <div class="hd for-future">Named date + expected turnaround</div>
+        <p class="txt for-current">She knows she's been submitted but has no visibility into when she'll hear back.</p>
+        <p class="txt for-future">Explicit commitment. No guessing.</p>
+        <p class="meta for-current"><strong>Pain point.</strong> The suspended waiting window is where doubt builds.</p>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="row">
+      <span class="step-num">Step 4</span>
+      <div class="cell sp">
+        <div class="eye">Award</div>
+        <div class="hd for-current">Clay sends award communication</div>
+        <div class="hd for-future">Katie delivers the award as a moment — call, video, or handwritten note</div>
+        <span class="pill manual">Manual</span>
+        <p class="txt for-current">Currently delivered as an email. Transactional.</p>
+        <p class="txt for-future">Ritualized. Phone call from Katie + follow-up email + welcome packet in the mail.</p>
+        <p class="meta"><strong>Moment of truth.</strong> The emotional peak of the entire journey.</p>
+      </div>
+      <div class="cell lead">
+        <div class="eye">Award</div>
+        <div class="hd for-current">Award email arrives</div>
+        <div class="hd for-future">Award delivered as a moment</div>
+        <div class="art email for-current">
+          <div class="from">From · Clay DeNicola</div>
+          <div class="subj">You've been awarded a Mainstream Boutique franchise</div>
+          <div class="body">Congratulations [First Name] — we're thrilled to welcome you to Mainstream Boutique. Your agreement package is on its way. <em>[Template preview]</em></div>
+        </div>
+        <div class="art call for-future">
+          <div class="icon">✨</div>
+          <div class="info">
+            <div class="t">Phone call from Katie · Award day</div>
+            <div class="s">Followed by welcome email + welcome packet in the mail</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 5 -->
+    <div class="row">
+      <span class="step-num">Step 5</span>
+      <div class="cell sp">
+        <div class="eye">Compliance</div>
+        <div class="hd">Confirm FDD 16-day compliance</div>
+        <span class="pill tool">Clay-owned · Current + Future</span>
+        <p class="txt">Hard 16-day waiting period from FDD delivery before agreements can be signed. Clay tracks this in both states.</p>
+      </div>
+      <div class="cell lead">
+        <div class="eye">Wait period</div>
+        <div class="hd">16-day FDD compliance window</div>
+        <p class="txt">She can review, consult her attorney and spouse, and prepare for signing. Mandatory waiting period.</p>
+      </div>
+    </div>
+
+    <!-- Step 6 -->
+    <div class="row">
+      <span class="step-num">Step 6</span>
+      <div class="cell sp">
+        <div class="eye">Draft</div>
+        <div class="hd">Clay drafts the franchise agreements</div>
+        <span class="pill manual">Manual · Clay-owned</span>
+        <p class="txt">Clay retains agreement drafting in both current and future state. Legal sits on his desk either way.</p>
+      </div>
+      <div class="cell lead">
+        <div class="eye">Not visible to lead</div>
+        <div class="hd">Back-office drafting window</div>
+        <p class="txt for-current">No lead touchpoint during drafting. She may hear nothing for a week+.</p>
+        <p class="txt for-future">Katie sends proactive check-ins while Clay drafts, so the quiet window isn't silent.</p>
+      </div>
+    </div>
+
+    <!-- Step 7 -->
+    <div class="row">
+      <span class="step-num">Step 7</span>
+      <div class="cell sp">
+        <div class="eye">Send</div>
+        <div class="hd for-current">Clay sends agreements with execution instructions</div>
+        <div class="hd for-future">Clay sends agreements + plain-language summary</div>
+        <span class="pill tool">DocuSign</span>
+        <p class="txt for-current">Agreement package + execution instructions land in her inbox.</p>
+        <p class="txt for-future">Same, plus a plain-language agreement summary prepared by Clay to take the edge off the legal language.</p>
+      </div>
+      <div class="cell lead">
+        <div class="eye">DocuSign</div>
+        <div class="hd">Agreements arrive for signature</div>
+        <div class="art doc">
+          <div class="icon">FA</div>
+          <div class="info">
+            <div class="t">Franchise Agreement package</div>
+            <div class="s for-current">DocuSign · Execution instructions included</div>
+            <div class="s for-future">DocuSign · Execution instructions + plain-language summary</div>
+          </div>
+        </div>
+        <p class="meta for-current"><strong>Pain point.</strong> Legal jargon. The leap from "talking" to "signing" is the largest psychological jump in the journey.</p>
+      </div>
+    </div>
+
+    <!-- Emotional strip -->
+    <div class="emo-strip">
+      <div class="emo">
+        <span class="lbl">Salesperson load</span>
+        <div class="arc for-current">Clay runs all of it — validation, approval, legal, agreement delivery. No buffer.</div>
+        <div class="arc for-future">Katie leads the lead experience; Clay focuses on the legal work where his time matters most.</div>
+      </div>
+      <div class="emo">
+        <span class="lbl">Lead's emotional arc</span>
+        <div class="arc for-current">Exposed (funding) → suspended (waiting) → elated (award) → sober (agreement review) → committed.</div>
+        <div class="arc for-future">Confident → anticipated → celebrated → committed. She's being welcomed, not processed.</div>
+        <div class="mot"><b>Moment of truth</b>Award communication. Remembered forever.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= STAGE 4 — SIGNED / SITE / LEASE ================= -->
+  <div class="stage" id="stage-4">
+    <div class="stage-head">
+      <div class="stage-left">
+        <div class="stage-num">04</div>
+        <div class="stage-title">
+          <span class="label">Stage 4</span>
+          <span class="name">Signed / Site / Lease</span>
+        </div>
+      </div>
+      <div class="stage-q">"Has the agreement executed, site been secured, and lease signed?"</div>
+    </div>
+
+    <div class="col-heads">
+      <div class="col-head">
+        <div class="eyebrow">Salesperson</div>
+        <h3 class="for-current">What Clay does</h3>
+        <h3 class="for-future">Clay for real estate · Katie for continuity</h3>
+        <div class="sub for-current">Owns agreement, site ID, lease negotiation end-to-end</div>
+        <div class="sub for-future">Clay drives site + lease; Katie keeps the relationship warm</div>
+      </div>
+      <div class="col-head">
+        <div class="eyebrow">Lead</div>
+        <h3>What she sees, hears, receives</h3>
+        <div class="sub">Agreement signed → the long quiet window → lease day</div>
+      </div>
+    </div>
+
+    <!-- Step 1 -->
+    <div class="row">
+      <span class="step-num">Step 1</span>
+      <div class="cell sp">
+        <div class="eye">Execute</div>
+        <div class="hd">Franchise agreement fully executed</div>
+        <span class="pill tool">DocuSign · Finance</span>
+        <p class="txt">All signatures complete. Finance collects the initial franchise fee.</p>
+      </div>
+      <div class="cell lead">
+        <div class="eye">Signed</div>
+        <div class="hd">She signs. She wires the franchise fee.</div>
+        <p class="txt">Relief. Euphoria. The biggest leap of faith in the whole process is now behind her.</p>
+        <div class="art doc">
+          <div class="icon">✓</div>
+          <div class="info">
+            <div class="t">Executed franchise agreement</div>
+            <div class="s">Signed by both parties · Franchise fee wired</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="row">
+      <span class="step-num">Step 2</span>
+      <div class="cell sp">
+        <div class="eye">Welcome</div>
+        <div class="hd for-current">Next step emails sent as needed</div>
+        <div class="hd for-future">Katie sends a personal welcome within 24 hrs + 90-day roadmap</div>
+        <span class="pill manual for-future">Manual · Ritual</span>
+        <p class="txt for-current">Currently ad-hoc. Depends on Clay's bandwidth.</p>
+        <p class="txt for-future">Scripted welcome-to-the-family moment. Explicit "here's the next 90 days" so she knows the site/lease window isn't a void.</p>
+      </div>
+      <div class="cell lead">
+        <div class="eye">Welcome</div>
+        <div class="hd for-current">Quiet post-signing window begins</div>
+        <div class="hd for-future">"Welcome to Mainstream" moment + 90-day roadmap</div>
+        <p class="txt for-current">She signed — and now there's silence while real estate begins. Buyer's remorse risk is highest here.</p>
+        <p class="txt for-future">Welcome kit + Katie's personal note + the roadmap arrive fast. She knows what's coming and that she belongs.</p>
+        <div class="art email for-future">
+          <div class="from">From · Katie Skrove</div>
+          <div class="subj">Welcome to Mainstream — here's the next 90 days</div>
+          <div class="body">Hi [First Name] — first, welcome. You're officially part of the family. Here's what the next 90 days look like on the real estate and site side, and how I'll be checking in along the way. <em>[Template preview — to be drafted]</em></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="row">
+      <span class="step-num">Step 3</span>
+      <div class="cell sp">
+        <div class="eye">Real estate</div>
+        <div class="hd">Real estate search + site ID + landlord outreach</div>
+        <span class="pill manual">Manual · Clay-owned</span>
+        <p class="txt">Clay runs the real estate work in both states. Multi-week to multi-month depending on market. Lowest-signal phase for the lead.</p>
+      </div>
+      <div class="cell lead">
+        <div class="eye">Waiting + touring</div>
+        <div class="hd for-current">Long quiet stretches punctuated by site tours</div>
+        <div class="hd for-future">Transparent market context + Katie check-ins between Clay's updates</div>
+        <p class="txt for-current">Weeks can pass between meaningful updates. Feels like the brand is dragging its feet.</p>
+        <p class="txt for-future">Real estate delays reframed with market context. Katie's cadence fills the gaps between Clay's site updates.</p>
+        <p class="meta for-current"><strong>Biggest silent-disengagement risk in the entire journey.</strong></p>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="row">
+      <span class="step-num">Step 4</span>
+      <div class="cell sp">
+        <div class="eye">Negotiate</div>
+        <div class="hd">Clay negotiates lease terms with landlord</div>
+        <span class="pill manual">Manual · Clay-owned</span>
+        <p class="txt">Clay drives the lease negotiation in both states. This is where his operator knowledge pays.</p>
+      </div>
+      <div class="cell lead">
+        <div class="eye">Updates</div>
+        <div class="hd">Periodic lease negotiation updates</div>
+        <p class="txt for-current">She hears from Clay when milestones hit. Silence in between.</p>
+        <p class="txt for-future">Same updates, plus Katie is checking in independently on her side so the relationship stays warm.</p>
+      </div>
+    </div>
+
+    <!-- Step 5 -->
+    <div class="row">
+      <span class="step-num">Step 5</span>
+      <div class="cell sp">
+        <div class="eye">Execute lease</div>
+        <div class="hd">Lease signed</div>
+        <span class="pill tool">DocuSign · Landlord</span>
+        <p class="txt">The actual exit of Sales → Onboarding. Not agreement execution — lease signature.</p>
+      </div>
+      <div class="cell lead">
+        <div class="eye">Signed</div>
+        <div class="hd">Lease executed — she's officially a boutique owner-in-waiting</div>
+        <p class="txt for-current">Currently treated as a procedural milestone.</p>
+        <p class="txt for-future">Celebrated as its own moment. She made it through.</p>
+        <div class="art doc">
+          <div class="icon">✓</div>
+          <div class="info">
+            <div class="t">Executed retail lease</div>
+            <div class="s">Onboarding handoff triggered</div>
+          </div>
+        </div>
+        <p class="meta"><strong>Moment of truth.</strong> Lease day.</p>
+      </div>
+    </div>
+
+    <!-- Step 6 -->
+    <div class="row">
+      <span class="step-num">Step 6</span>
+      <div class="cell sp">
+        <div class="eye">Handoff</div>
+        <div class="hd for-current">Clay writes handoff memo + schedules onboarding kickoff</div>
+        <div class="hd for-future">Katie makes warm intro to Onboarding · Clay completes handoff memo</div>
+        <span class="pill manual">Manual</span>
+        <p class="txt for-current">Handoff memo + kickoff schedule = Sales is done.</p>
+        <p class="txt for-future">Handoff is warm because Katie has been her anchor since Intake. Named Onboarding contact, not a nameless team.</p>
+      </div>
+      <div class="cell lead">
+        <div class="eye">Onboarding</div>
+        <div class="hd for-current">Introduced to onboarding team</div>
+        <div class="hd for-future">Warm intro from Katie to her named Onboarding contact</div>
+        <p class="txt for-current">Cold handoff. New people, new process.</p>
+        <p class="txt for-future">Continuity anchor still present. Onboarding starts from a warm place.</p>
+      </div>
+    </div>
+
+    <!-- Emotional strip -->
+    <div class="emo-strip">
+      <div class="emo">
+        <span class="lbl">Salesperson load</span>
+        <div class="arc for-current">Real estate + lease consume Clay while Intake + Qualifying leads in the pipeline starve for attention.</div>
+        <div class="arc for-future">Clay focuses on real estate and lease where his time matters most. Katie fills the relationship gap.</div>
+      </div>
+      <div class="emo">
+        <span class="lbl">Lead's emotional arc</span>
+        <div class="arc for-current">Relief → euphoria → doubt (during silence) → frustration (real estate delays) → renewed excitement → commitment.</div>
+        <div class="arc for-future">Relief → euphoria → belonging → anticipation → excitement → commitment.</div>
+        <div class="mot"><b>Biggest gap</b>The silence after agreement execution. Eliminated by Katie's continuity.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= STAGE 5 — NURTURE ================= -->
+  <div class="stage" id="stage-5">
+    <div class="stage-head">
+      <div class="stage-left">
+        <div class="stage-num">05</div>
+        <div class="stage-title">
+          <span class="label">Stage 5</span>
+          <span class="name">Dead Lead / Nurture</span>
+        </div>
+      </div>
+      <div class="stage-q">"Is this recoverable later, or truly lost?"</div>
+    </div>
+
+    <div class="col-heads">
+      <div class="col-head">
+        <div class="eyebrow">Salesperson</div>
+        <h3 class="for-current">What Clay does</h3>
+        <h3 class="for-future">What Katie does</h3>
+        <div class="sub for-current">Manual status moves · automated cadence</div>
+        <div class="sub for-future">Structured 24-month cadence · value-forward content</div>
+      </div>
+      <div class="col-head">
+        <div class="eyebrow">Lead</div>
+        <h3>What she sees, hears, receives</h3>
+        <div class="sub">Light-touch outreach during the quiet window</div>
+      </div>
+    </div>
+
+    <!-- Step 1 -->
+    <div class="row">
+      <span class="step-num">Step 1</span>
+      <div class="cell sp">
+        <div class="eye">Classify</div>
+        <div class="hd">Move lead to Dead Lead with category + sub-reason</div>
+        <span class="pill tool">FC Lead Status</span>
+        <p class="txt for-current">Clay decides: Inactive (eligible for re-engagement) or Dead Forever (excluded).</p>
+        <p class="txt for-future">Katie owns the nurture bucket end-to-end. Same categorization model.</p>
+      </div>
+      <div class="cell lead">
+        <div class="eye">Invisible</div>
+        <div class="hd">She doesn't see this happen</div>
+        <p class="txt">Status change is internal. She just goes quiet — for a week, a month, or forever.</p>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="row">
+      <span class="step-num">Step 2</span>
+      <div class="cell sp">
+        <div class="eye">Automate</div>
+        <div class="hd">Re-engagement Workflow A fires</div>
+        <span class="pill auto">Automated</span>
+        <span class="pill tool">FC Workflow A</span>
+        <p class="txt for-current">SMS + email cadence. Currently ad-hoc content.</p>
+        <p class="txt for-future">Structured cadence at months 1, 3, 6, 12 with value-add content rather than pitch.</p>
+      </div>
+      <div class="cell lead">
+        <div class="eye">SMS + Email</div>
+        <div class="hd">Re-engagement touches land on her phone and inbox</div>
+        <div class="art sms">
+          <div class="bubble">[First Name] — it's been a while. We've been thinking about you. Want to catch up on what's new? <em>[SMS preview — canonical lives in FC]</em></div>
+          <div class="meta">Re-engagement SMS</div>
+        </div>
+        <div class="art email">
+          <div class="from for-current">From · Clay DeNicola</div>
+          <div class="from for-future">From · Katie Skrove</div>
+          <div class="subj for-current">Thinking of you — still curious about Mainstream?</div>
+          <div class="subj for-future">Life shifts. When yours does, I'm here.</div>
+          <div class="body for-current">Hi [First Name], hope all is well. If the timing feels right to revisit the franchise conversation, I'd love to reconnect. <em>[Re-engagement Email 1 preview]</em></div>
+          <div class="body for-future">Hi [First Name] — no pitch. Just a note. I opened a Mainstream in 2005 and I know life timing is everything. When you're ready, I'm an email away. <em>[Katie's story-led re-engagement]</em></div>
+        </div>
+        <p class="meta"><strong>Moment of truth.</strong> The re-engagement touch after a long silence.</p>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="row">
+      <span class="step-num">Step 3</span>
+      <div class="cell sp">
+        <div class="eye">Content</div>
+        <div class="hd for-current">No structured nurture content in current state</div>
+        <div class="hd for-future">Quarterly value-add content · not a pitch</div>
+        <span class="pill manual for-future">Manual · Recurring</span>
+        <p class="txt for-current">Re-engagement is the only structured touch today. No library of value-forward content.</p>
+        <p class="txt for-future">Quarterly market letter, founder stories, community highlights. Reasons to stay in touch that aren't "buy from us."</p>
+      </div>
+      <div class="cell lead for-current tbd">
+        <div class="eye">Future state</div>
+        <div class="hd">Value-add content library · TBD</div>
+        <p class="txt">To be designed. Today she doesn't hear from us between re-engagement attempts.</p>
+      </div>
+      <div class="cell lead for-future">
+        <div class="eye">Email · Quarterly</div>
+        <div class="hd">Branded content pieces land on a predictable cadence</div>
+        <div class="art email">
+          <div class="from">From · Mainstream Boutique</div>
+          <div class="subj">This quarter at Mainstream · Stories from the field</div>
+          <div class="body">Market letter + founder stories + franchisee community highlights. No ask. Just signal that we're still here. <em>[Future content — to be built]</em></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="row">
+      <span class="step-num">Step 4</span>
+      <div class="cell sp">
+        <div class="eye">Sunset</div>
+        <div class="hd for-current">No formal sunset rule</div>
+        <div class="hd for-future">24-month sunset to Dead Forever</div>
+        <span class="pill auto for-future">Automated</span>
+        <p class="txt for-current">Leads can sit in nurture indefinitely with no clear expiration.</p>
+        <p class="txt for-future">Explicit 24-month window. If no engagement, reclassified Dead Forever and removed from active cadence.</p>
+      </div>
+      <div class="cell lead">
+        <div class="eye">Closure</div>
+        <div class="hd for-current">Indefinite</div>
+        <div class="hd for-future">Clean end after 24 months of silence</div>
+        <p class="txt for-current">Could receive a re-engagement touch years later from a lead she barely remembers submitting.</p>
+        <p class="txt for-future">Either she re-engages within 24 months or we let her go with dignity. No stale outreach.</p>
+      </div>
+    </div>
+
+    <!-- Emotional strip -->
+    <div class="emo-strip">
+      <div class="emo">
+        <span class="lbl">Salesperson load</span>
+        <div class="arc for-current">Nurture is a set-it-and-hope-it-works cadence that Clay doesn't have time to curate.</div>
+        <div class="arc for-future">Katie owns the nurture bucket with a structured content program and a clear sunset rule.</div>
+      </div>
+      <div class="emo">
+        <span class="lbl">Lead's emotional arc</span>
+        <div class="arc for-current">Fatigue → drift → occasional reawakening — if the touch lands well.</div>
+        <div class="arc for-future">Maintained connection. When her timing shifts, Katie is already the first call.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Mainstream Boutique · Journey Visual · Paired with the detailed <a href="./journey-maps.html" style="color:#B55D5D;font-weight:700;">Journey Maps project page</a> · part of the <a href="./index.html" style="color:#B55D5D;font-weight:700;">FranDev Living Filing Cabinet</a>.
+  </div>
+
+</div>
+
+<script>
+  function setState(state){
+    document.body.setAttribute('data-state', state);
+    document.querySelectorAll('.state-toggle button').forEach(b => {
+      b.classList.toggle('active', b.getAttribute('data-state') === state);
+    });
+  }
+</script>
+
+</body>
+</html>
