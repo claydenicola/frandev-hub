@@ -147,6 +147,31 @@
     .emo-strip{grid-template-columns:1fr}
     .emo-strip .emo:first-child{border-right:none;border-bottom:1px solid #E6DFD4}
   }
+
+/* === Artifact modal === */
+[data-artifact]{cursor:pointer;position:relative}
+[data-artifact]:hover{outline:2px solid #B55D5D;outline-offset:2px}
+[data-artifact]::after{content:"↗ click to view";position:absolute;top:8px;right:8px;font-size:10px;color:#B55D5D;font-weight:700;letter-spacing:1px;text-transform:uppercase;opacity:0;transition:opacity .15s}
+[data-artifact]:hover::after{opacity:1}
+.am-overlay{position:fixed;inset:0;background:rgba(43,42,40,.6);display:flex;align-items:center;justify-content:center;z-index:9999;padding:24px;backdrop-filter:blur(2px)}
+.am-overlay[hidden]{display:none!important}
+.am-card{background:#FAF7F2;border-radius:16px;max-width:760px;width:100%;max-height:88vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3);position:relative}
+.am-close{position:absolute;top:14px;right:14px;background:none;border:none;font-size:28px;color:#5A5753;cursor:pointer;line-height:1;padding:6px 12px;border-radius:6px}
+.am-close:hover{background:#E6DFD4}
+.am-head{padding:32px 36px 18px;border-bottom:1px solid #E6DFD4}
+.am-tag{font-size:10.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#B55D5D;margin-bottom:10px}
+.am-title{font-family:Cardo,serif;font-size:26px;font-weight:400;color:#2B2A28;margin:0 0 6px;line-height:1.25}
+.am-sub{font-size:13.5px;color:#5A5753;margin:0;font-style:italic}
+.am-body{padding:24px 36px}
+.am-body .preview{background:#fff;border:1px solid #E6DFD4;border-radius:10px;padding:22px 26px;font-family:Lato,sans-serif;font-size:14px;line-height:1.55;color:#2B2A28;white-space:pre-wrap}
+.am-body .preview strong{color:#2B2A28}
+.am-body .preview .pink{color:#B55D5D;font-weight:700}
+.am-body .preview .muted{color:#8A8681;font-style:italic;font-size:12.5px}
+.am-foot{padding:18px 36px 28px;display:flex;gap:12px;justify-content:flex-end;flex-wrap:wrap}
+.am-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:8px;background:#B55D5D;color:#fff;text-decoration:none;font-weight:600;font-size:13px;border:none;cursor:pointer}
+.am-btn:hover{background:#3A1F1F}
+.am-btn-secondary{background:#fff;color:#5A5753;border:1px solid #E6DFD4}
+.am-btn-secondary:hover{background:#F2EBE0;color:#2B2A28}
 </style>
 </head>
 <body data-state="current">
@@ -1133,5 +1158,95 @@
   }
 </script>
 
+
+<div id="am-overlay" class="am-overlay" hidden>
+  <div class="am-card" role="dialog" aria-modal="true" aria-labelledby="am-title">
+    <button class="am-close" onclick="amClose()" aria-label="Close">×</button>
+    <div class="am-head">
+      <div class="am-tag" id="am-tag"></div>
+      <h2 class="am-title" id="am-title"></h2>
+      <p class="am-sub" id="am-sub"></p>
+    </div>
+    <div class="am-body" id="am-body"></div>
+    <div class="am-foot" id="am-foot"></div>
+  </div>
+</div>
+
+<script id="am-script">
+const ARTIFACTS = {
+  'welcome-email': {
+    tag: 'EMAIL · STAGE 1 · INITIAL',
+    title: 'Initial Email — Welcome',
+    sub: 'Fires automatically when a lead submits the franchise inquiry web form. From Clay.',
+    body: `<div class="preview"><strong>Subject:</strong> Thanks for your interest in Mainstream Boutique\n\nHi <strong>$FIRST_NAME_33_1$</strong>,\n\nThanks for reaching out — I'm glad Mainstream Boutique caught your eye, and we're so excited to speak with you!\n\nI'd love to hear what drew you in and walk you through what owning a Mainstream Boutique franchise actually looks like. The best next step is a quick 30-minute call so I can answer your questions directly and we can figure out if this is the right fit for you.\n\nReply with a couple of times that work for you in the next few days and I'll get us on the calendar.\n\nI've attached our franchise kit so you can dig in before our call — enjoy!\n\nTalk soon,\n\n<strong>Clay DeNicola</strong>\nDirector of Franchise Development <span class="pink">|</span> <span class="pink">Mainstream Boutique Franchising</span>\n612.499.7376 <span class="pink">·</span> clay@mainstreamboutique.com\n<span class="muted">mainstreamboutique.com/pages/franchise</span>\n\n📎 franchise-kit.pdf attached</div>`,
+    footer: '<a class="am-btn am-btn-secondary" href="https://mainstreamboutique.franconnect.net/fc/control/uccTemplateSummary" target="_blank" rel="noopener">Open in FranConnect →</a>'
+  },
+  'welcome-sms': {
+    tag: 'SMS · STAGE 1 · INITIAL',
+    title: 'Initial SMS — Welcome',
+    sub: 'Fires alongside the welcome email. From Clay.',
+    body: `<div class="preview">Hi <strong>$FIRST_NAME_33_1$</strong>, it's Clay from Mainstream Boutique's Franchising Team — thanks for reaching out! Let's jump on a call this week to start your journey.\n\nGrab a 30-min intro call here: <span class="pink">https://calendly.com/clay-denicola/introductory-call</span> — or just reply with a few days/times that work for you.\n\nTalk soon!\nYou are SO Loved.</div>`,
+    footer: '<a class="am-btn am-btn-secondary" href="https://calendly.com/clay-denicola/introductory-call" target="_blank" rel="noopener">Open Clay\'s Calendly →</a>'
+  },
+  'app-email': {
+    tag: 'EMAIL · STAGE 1 · APPLICATION SENT',
+    title: 'Application Sent Email',
+    sub: 'Fires when Clay changes lead status to "Application Sent". From Clay.',
+    body: `<div class="preview"><strong>Subject:</strong> Next step — your Mainstream Boutique application\n\nHi <strong>$FIRST_NAME_33_1$</strong>,\n\nIt was so great connecting with you on our call! Thanks for the great conversation and for sharing what's drawing you to Mainstream Boutique.\n\nAs discussed, here's our franchise partner application for you to complete: <span class="pink">$FRANCHISE_PARTNER_APPLICATION_1641418384_URL$</span>\n\nThis helps us get to know you a little deeper — your background, your goals, and what excites you about owning a Mainstream Boutique. Take your time with it, and let me know if any questions come up along the way.\n\nOnce your application is in, your next step is access to our 2026 Franchise Disclosure Document (FDD) — we'll send your login as soon as we receive it. The FDD is where you'll get the full inside look at who we are, how the partnership works, and what ownership truly entails.\n\nTalk soon,\n\n<strong>Clay DeNicola</strong>\nDirector of Franchise Development <span class="pink">|</span> <span class="pink">Mainstream Boutique Franchising</span>\n612.499.7376 <span class="pink">·</span> clay@mainstreamboutique.com\n<span class="muted">mainstreamboutique.com/pages/franchise</span></div>`,
+    footer: '<a class="am-btn" href="https://mainstreamboutique.franconnect.net/fc/extforms/franchisepartnerapp" target="_blank" rel="noopener">Open Application Form →</a> <a class="am-btn am-btn-secondary" href="https://mainstreamboutique.franconnect.net/fc/control/uccTemplateSummary" target="_blank" rel="noopener">Open Email in FC →</a>'
+  },
+  'app-form': {
+    tag: 'WEB FORM · STAGE 1',
+    title: '2026 Franchise Partner Application',
+    sub: 'Lead completes this after the introductory call. Hosted on franchise.mainstreamboutique.com',
+    body: '<div class="preview">A multi-section web form covering applicant background, goals, financial readiness, market preferences, and timing. Submitting it lands the lead in FC and triggers the "Application Submitted by Lead" notification email to the lead owner.</div>',
+    footer: '<a class="am-btn" href="https://mainstreamboutique.franconnect.net/fc/extforms/franchisepartnerapp" target="_blank" rel="noopener">Open Application Form →</a>'
+  },
+  'app-noti': {
+    tag: 'INTERNAL EMAIL · STAGE 1',
+    title: 'Application Submitted by Lead',
+    sub: 'Notification to the lead owner when the lead completes the franchise application.',
+    body: `<div class="preview"><strong>Subject:</strong> Application Email Notification\n\n<span class="pink">Application Submitted - Automated Notification</span>\n\n<strong>$FIRST_NAME_33_1$ $LAST_NAME_33_1$</strong> has completed the Application web form. You can now view the results in their lead profile.</div>`,
+    footer: '<a class="am-btn am-btn-secondary" href="https://mainstreamboutique.franconnect.net/fc/control/uccTemplateSummary" target="_blank" rel="noopener">Open in FranConnect →</a>'
+  }
+};
+
+function amOpen(id) {
+  const a = ARTIFACTS[id];
+  if (!a) return;
+  document.getElementById('am-tag').textContent = a.tag;
+  document.getElementById('am-title').textContent = a.title;
+  document.getElementById('am-sub').textContent = a.sub;
+  document.getElementById('am-body').innerHTML = a.body;
+  document.getElementById('am-foot').innerHTML = a.footer || '';
+  document.getElementById('am-overlay').hidden = false;
+  document.body.style.overflow = 'hidden';
+}
+function amClose() {
+  document.getElementById('am-overlay').hidden = true;
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') amClose(); });
+document.getElementById('am-overlay').addEventListener('click', e => { if (e.target.id === 'am-overlay') amClose(); });
+
+// Pattern-based cell tagging
+const PATTERNS = [
+  { rx: /welcome.*email|initial email|welcome sequence/i, art: 'welcome-email' },
+  { rx: /welcome.*sms|initial sms|sms.*calendly|tap.*book/i, art: 'welcome-sms' },
+  { rx: /application.*sent|sends application|partner application email/i, art: 'app-email' },
+  { rx: /complet.*application|fills out application|web form|partner application/i, art: 'app-form' },
+  { rx: /application.*notification|application submitted|noti/i, art: 'app-noti' }
+];
+function tagCells() {
+  document.querySelectorAll('.row .cell, .row > div').forEach(cell => {
+    if (cell.dataset.artifact) return;
+    const txt = (cell.textContent || '').toLowerCase();
+    for (const p of PATTERNS) {
+      if (p.rx.test(txt)) { cell.dataset.artifact = p.art; cell.addEventListener('click', () => amOpen(p.art)); break; }
+    }
+  });
+}
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', tagCells); else tagCells();
+</script>
 </body>
 </html>
