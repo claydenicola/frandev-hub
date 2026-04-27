@@ -1231,11 +1231,11 @@ document.getElementById('am-overlay').addEventListener('click', e => { if (e.tar
 
 // Pattern-based cell tagging
 const PATTERNS = [
-  { rx: /welcome.*email|initial email|welcome sequence/i, art: 'welcome-email' },
-  { rx: /welcome.*sms|initial sms|sms.*calendly|tap.*book/i, art: 'welcome-sms' },
-  { rx: /application.*sent|sends application|partner application email/i, art: 'app-email' },
-  { rx: /complet.*application|fills out application|web form|partner application/i, art: 'app-form' },
-  { rx: /application.*notification|application submitted|noti/i, art: 'app-noti' }
+  { rx: /sms · |welcome sms|welcome text lands|automated sms|sms fires|sms.*calendly|tap.*book/i, art: 'welcome-sms' },
+  { rx: /welcome email|automated welcome email|email · minutes after submit|welcome sequence/i, art: 'welcome-email' },
+  { rx: /application.*sent|sends application|partner application email|next step.*application/i, art: 'app-email' },
+  { rx: /complet.*application|fills out application|partner application form|2026 franchise partner application|application form/i, art: 'app-form' },
+  { rx: /application.*notification|application submitted|noti.*lead owner/i, art: 'app-noti' }
 ];
 function tagCells() {
   document.querySelectorAll('.row .cell, .row > div').forEach(cell => {
