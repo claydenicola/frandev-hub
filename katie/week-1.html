@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<script src="../gate.js"></script>
+<title>Week 1 — Intake — Katie's Launchpad · FranDev</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&family=Lato:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#FAF7F2;color:#2B2A28;font-family:Lato,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.6}
+a{color:#B55D5D}
+a:hover{color:#3A1F1F}
+
+.topbar{background:#fff;border-bottom:1px solid #E6DFD4;padding:10px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.topbar .brand-left{font-size:12px;color:#8A8681;letter-spacing:2px;text-transform:uppercase;font-weight:700}
+.topbar .brand-right{font-size:12px;color:#8A8681}
+.topbar a.back{color:#B55D5D;text-decoration:none;font-size:13px;font-weight:500}
+.topbar a.back:hover{text-decoration:underline}
+
+.wrap{max-width:1080px;margin:0 auto;padding:36px 28px 64px}
+
+.hero{background:linear-gradient(135deg,#F5B8B8 0%,#EF9F9F 100%);border:1px solid #B55D5D;border-radius:14px;padding:30px 36px;margin-bottom:22px;color:#3A1F1F}
+.hero .wordmark{font-size:11px;font-weight:700;letter-spacing:3px;color:#5A3535;text-transform:uppercase;margin-bottom:8px}
+.hero h1{font-family:Cardo,'Times New Roman',Georgia,serif;font-size:38px;font-weight:400;margin:0 0 6px;letter-spacing:-0.01em;color:#3A1F1F;line-height:1.15}
+.hero .tag{color:#5A3535;margin:0;font-size:15px;font-style:italic}
+.hero .meta{color:#5A3535;margin:14px 0 0;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase}
+
+.kt-nav{display:flex;background:#fff;border:1px solid #E6DFD4;border-radius:12px;padding:6px;margin-bottom:28px;overflow-x:auto;gap:4px;box-shadow:0 1px 2px rgba(0,0,0,0.03)}
+.kt-nav a{flex:1;min-width:128px;padding:11px 12px 13px;text-align:center;text-decoration:none;color:#5A5753;border-radius:8px;transition:background .15s,color .15s;display:flex;flex-direction:column;align-items:center;gap:3px}
+.kt-nav a:hover{background:#F2EBE0;color:#2B2A28}
+.kt-nav a.active{background:#EF9F9F;color:#3A1F1F}
+.kt-nav a .week-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;opacity:.65}
+.kt-nav a.active .week-label{opacity:.85}
+.kt-nav a .week-name{font-family:Cardo,serif;font-size:17px;font-weight:400;line-height:1.1}
+
+section.kt-block{background:#fff;border:1px solid #E6DFD4;border-radius:12px;padding:24px 28px;margin-bottom:18px}
+section.kt-block.lead{border-left:4px solid #EF9F9F}
+section.kt-block.goal{background:linear-gradient(135deg,#FFF7EC 0%,#FCEEDA 100%);border:1px solid #C9A86A}
+
+.section-eye{font-size:11px;font-weight:700;letter-spacing:2px;color:#B55D5D;text-transform:uppercase;margin:0 0 6px}
+.section-eye.muted{color:#8A8681}
+.section-h2{font-family:Cardo,serif;font-size:24px;font-weight:400;color:#2B2A28;margin:0 0 14px;letter-spacing:-0.01em;line-height:1.2}
+.section-h2.tight{margin-bottom:8px}
+
+.kt-block p{margin:0 0 12px;font-size:15px;color:#2B2A28}
+.kt-block p:last-child{margin-bottom:0}
+.kt-block ul,.kt-block ol{margin:0 0 12px 0;padding-left:22px;font-size:15px;color:#2B2A28}
+.kt-block li{margin-bottom:8px}
+.kt-block strong{color:#2B2A28}
+
+.bucket-slide{background:#fff;border:2px solid #B55D5D;border-radius:14px;overflow:hidden;margin-bottom:22px;box-shadow:0 2px 12px rgba(181,93,93,0.08)}
+.bucket-slide .ribbon{background:#B55D5D;color:#fff;padding:10px 20px;font-size:11.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center}
+.bucket-slide .ribbon .pulse{display:inline-block;width:8px;height:8px;background:#fff;border-radius:50%;animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.bucket-slide .body{padding:22px 26px}
+.bucket-slide h3{font-family:Cardo,serif;font-size:26px;font-weight:400;margin:0 0 4px;color:#2B2A28}
+.bucket-slide .question{color:#5A5753;font-style:italic;font-size:14px;margin-bottom:14px}
+.bucket-slide ul.checklist{list-style:none;padding:0;margin:0}
+.bucket-slide ul.checklist li{padding:9px 0 9px 28px;border-bottom:1px solid #F2EBE0;position:relative;font-size:14.5px;color:#2B2A28}
+.bucket-slide ul.checklist li:last-child{border-bottom:none}
+.bucket-slide ul.checklist li::before{content:"";width:14px;height:14px;border:1.5px solid #C2BCB2;border-radius:3px;position:absolute;left:0;top:11px;background:#fff}
+.bucket-slide ul.checklist li.this-week{background:#FFF7EC;margin:0 -26px;padding-left:54px;padding-right:26px}
+.bucket-slide ul.checklist li.this-week::before{content:"";width:18px;height:18px;border:2.5px solid #C9A86A;border-radius:4px;left:26px;top:9px;box-shadow:0 0 0 4px #FCEEDA}
+.bucket-slide ul.checklist li.this-week::after{content:"WEEK 1 GOAL";position:absolute;right:18px;top:11px;background:#C9A86A;color:#3A2E10;padding:2px 9px;border-radius:4px;font-size:9.5px;font-weight:700;letter-spacing:1px}
+
+.permission{background:#FAF6F0;border:1px dashed #C9A86A;border-radius:10px;padding:18px 22px;margin:18px 0;font-size:14.5px;color:#5A4A20;font-style:italic}
+.permission strong{color:#3A2E10;font-style:normal}
+
+.callout{background:#FFF7EC;border-left:4px solid #C9A86A;border-radius:6px;padding:14px 18px;margin:14px 0;font-size:14px;color:#5A4A20}
+.callout strong{color:#3A2E10}
+
+.steps{counter-reset:step;list-style:none;padding:0;margin:0}
+.steps li{counter-increment:step;padding:14px 0 14px 56px;position:relative;border-bottom:1px solid #F2EBE0;font-size:15px}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(step);position:absolute;left:0;top:14px;width:40px;height:40px;background:#EF9F9F;color:#3A1F1F;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-family:Cardo,serif;font-size:18px}
+.steps li strong{display:block;font-size:16px;margin-bottom:3px;color:#2B2A28}
+
+.kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.kpi-row .k{background:#FAF7F2;border:1px solid #E6DFD4;border-radius:8px;padding:14px 16px;text-align:center}
+.kpi-row .k .num{font-family:Cardo,serif;font-size:28px;color:#B55D5D;line-height:1}
+.kpi-row .k .lbl{font-size:11.5px;letter-spacing:1.5px;text-transform:uppercase;color:#8A8681;font-weight:700;margin-top:4px}
+
+.stub-banner{background:#F2EBE0;border:1px dashed #8A8681;border-radius:10px;padding:18px 22px;margin-bottom:18px;font-size:14px;color:#5A5753}
+.stub-banner strong{color:#2B2A28}
+
+.footer{color:#8A8681;font-size:12px;margin-top:48px;border-top:1px solid #E6DFD4;padding-top:18px;text-align:center}
+
+@media (max-width:680px){
+  .hero h1{font-size:28px}
+  .kt-nav a{min-width:100px;padding:9px 8px}
+  .kt-nav a .week-name{font-size:14px}
+  .kpi-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <span class="brand-left">FranDev · Katie's Launchpad</span>
+  <a class="back" href="../">← FranDev HQ</a>
+</div>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="wordmark">Katie's Launchpad · Week 1</div>
+    <h1>Week 1 — Intake</h1>
+    <p class="tag">Engage your leads. Schedule and conduct intro calls. Start moving them through the Intake bucket.</p>
+    <p class="meta">Goal: by Friday, several intro calls in the books</p>
+  </div>
+
+  <nav class="kt-nav">
+  <a href="./"><span class="week-label">Pre-Flight</span><span class="week-name">Orientation</span></a>
+  <a href="./week-1.html" class="active"><span class="week-label">Week 1</span><span class="week-name">Intake</span></a>
+  <a href="./week-2.html"><span class="week-label">Week 2</span><span class="week-name">Qualifying</span></a>
+  <a href="./week-3.html"><span class="week-label">Week 3</span><span class="week-name">Closing</span></a>
+  <a href="./week-4.html"><span class="week-label">Week 4</span><span class="week-name">Signed</span></a>
+</nav>
+
+  <div class="bucket-slide">
+    <div class="ribbon">
+      <span><span class="pulse"></span> &nbsp;We live here this week</span>
+      <span>Stage 1 of 5 · Intake</span>
+    </div>
+    <div class="body">
+      <h3>Intake</h3>
+      <div class="question">"Is this a real prospect worth our time?"</div>
+      <ul class="checklist">
+        <li class="this-week"><strong>Form submission</strong> + automated welcome sequence (email + SMS) — runs automatically when the lead inquires</li>
+        <li><strong>Introductory call</strong> conducted</li>
+        <li><strong>Application sent</strong> to lead via lead status step change</li>
+        <li><strong>Application completed</strong> — minimums met, realistic funding path, no red flags</li>
+        <li><strong>FDD sent</strong> to lead through Portal</li>
+        <li><strong>FDD Receipt</strong> signed by lead via portal</li>
+        <li><strong>Pre-qualification</strong> passed by candidate</li>
+      </ul>
+      <p style="margin:14px 0 0;font-size:13px;color:#5A5753"><em>Week 1 anchor:</em> the highlighted step is your starting line. The leads in your "Mine" view have already submitted the form — your job this week is to drive them to the next step (intro call) and start moving them deeper.</p>
+    </div>
+  </div>
+
+  <section class="kt-block">
+    <div class="section-eye">This Week's Goal</div>
+    <h2 class="section-h2 tight">Engage your pre-allocated leads. Schedule and conduct introductory calls. Move them into Intake.</h2>
+    <p><strong>Stretch goal:</strong> if a great call happens and the lead is ready, move them to <em>Application Sent</em> status — the application email fires automatically.</p>
+    <p>You probably won't get to FDD this week — that's intentional. Sending FDD now requires a completed application first (recent process change). We'll cover applications and FDD next week.</p>
+  </section>
+
+  <section class="kt-block lead">
+    <div class="section-eye">Your Leads</div>
+    <h2 class="section-h2">30–50 most recent inquiries, pre-loaded in your "Mine" view</h2>
+    <p>You start with a curated list — the freshest 30–50 leads who submitted the franchise inquiry form. Recency matters: these leads still remember submitting the form, and their response rates are highest while it's fresh.</p>
+    <p><strong>Where to find them:</strong> Sales Module → Lead Management NEW → toggle to <em>Mine</em>. Full walkthrough on the <a href="./">Pre-Flight page</a>.</p>
+    <p><strong>Working order suggestion:</strong> sort by most recent submission first. Work the top of the list down. Leads at the bottom of the list are ~30 days out and likely cooler.</p>
+  </section>
+
+  <section class="kt-block">
+    <div class="section-eye">Outreach — Your Call</div>
+    <h2 class="section-h2 tight">Call. Email. Text. Or some combination. Up to you.</h2>
+    <p>FranConnect has native actions for all three: <strong>Send Email</strong>, <strong>Send SMS</strong>, <strong>Log a Call</strong>. Every attempt gets logged in the Lead Engagement tab — that's the rule.</p>
+    <p>Default playbook (you can riff on this):</p>
+    <ul>
+      <li><strong>Day 1:</strong> Personal email or SMS to introduce yourself, reference their inquiry, propose a quick intro call</li>
+      <li><strong>Day 2–3:</strong> If no reply, follow up with a different channel (called email? try SMS — and vice versa)</li>
+      <li><strong>Day 4–7:</strong> One more attempt, different angle (e.g., share a relevant resource, ask a question instead of pitching a call)</li>
+      <li><strong>After 3–4 attempts with no reply:</strong> mark them disengaged and move on</li>
+    </ul>
+    <p>Suggested templates and starter messaging will live here as we build them out — for now, write in your own voice.</p>
+  </section>
+
+  <section class="kt-block goal">
+    <div class="section-eye muted">Intro Call Training Plan</div>
+    <h2 class="section-h2">Three rounds of practice before live leads</h2>
+    <p>Before you take real intro calls solo, we run three structured practice rounds. Goal: muscle memory + confidence with the call's foundations (what we can say, what we can't, how the call should flow).</p>
+    <ol class="steps">
+      <li><strong>Role play 1: Katie as the prospective franchisee, Clay as Clay.</strong><br>You sit in the lead's seat. Clay runs the call as he would in real life. You feel the pacing, the questions, the rhythm. Debrief after — what felt natural, what felt clunky, what was unclear. Foundation for what an intro call <em>actually sounds like</em>.</li>
+      <li><strong>Role play 2: Clay as the prospective franchisee, Katie as Director of Franchise Development.</strong><br>You're the salesperson now. Clay plays a realistic lead. You drive the call. Debrief covers what worked, where you got tripped up, what to adjust.</li>
+      <li><strong>Live test: Corey + Clay each submit the franchise inquiry web form (separately, like real leads).</strong><br>You take both of us through the full Intake process — outreach, scheduling, intro call, follow-up. Two reps, two different "personalities" to handle. By the end of this, you've worked your first two leads end-to-end before touching real ones.</li>
+    </ol>
+    <p style="margin-top:14px"><strong>Format:</strong> Zoom or phone — your choice. Whichever you'd actually run with a real lead.</p>
+  </section>
+
+  <section class="kt-block">
+    <div class="section-eye">What "Done with Week 1" Looks Like</div>
+    <h2 class="section-h2 tight">By Friday of Week 1:</h2>
+    <ul>
+      <li><strong>Outreach attempted</strong> on every lead in your Mine view (most recent 30–50)</li>
+      <li><strong>Activity logged</strong> in Lead Engagement for every attempt — channel, outcome, date</li>
+      <li><strong>Intro calls conducted</strong> with whichever leads responded (target: as many as you can land — there's no hard quota week 1, the goal is reps)</li>
+      <li><strong>Disengaged leads marked disengaged</strong> after 3–4 attempts with no response</li>
+      <li><strong>Stretch:</strong> 1–2 leads moved to <em>Application Sent</em> status (application email fires)</li>
+      <li><strong>Comfortable with the tools</strong> — Lead Engagement tab, native FC actions, your own voice</li>
+    </ul>
+    <p>Week 1 success isn't a number — it's reps + comfort + a lead or two starting to move. Numbers come later.</p>
+  </section>
+
+  <section class="kt-block">
+    <div class="permission">
+      <strong>From Corey:</strong> "Be yourself. Make connections with leads. Get them through the intake process. The framework here is a guide — use what works, drop what doesn't, find your own rhythm."
+    </div>
+  </section>
+
+</div>
+<div class="footer">
+  Mainstream Boutique · FranDev · Katie's Launchpad · Internal — for Katie + Clay + Corey
+</div>
+</body>
+</html>
