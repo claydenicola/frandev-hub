@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<script src="../gate.js"></script>
+<title>Week 3 — Closing — Katie's Launchpad · FranDev</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&family=Lato:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#FAF7F2;color:#2B2A28;font-family:Lato,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.6}
+a{color:#B55D5D}
+a:hover{color:#3A1F1F}
+
+.topbar{background:#fff;border-bottom:1px solid #E6DFD4;padding:10px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.topbar .brand-left{font-size:12px;color:#8A8681;letter-spacing:2px;text-transform:uppercase;font-weight:700}
+.topbar .brand-right{font-size:12px;color:#8A8681}
+.topbar a.back{color:#B55D5D;text-decoration:none;font-size:13px;font-weight:500}
+.topbar a.back:hover{text-decoration:underline}
+
+.wrap{max-width:1080px;margin:0 auto;padding:36px 28px 64px}
+
+.hero{background:linear-gradient(135deg,#F5B8B8 0%,#EF9F9F 100%);border:1px solid #B55D5D;border-radius:14px;padding:30px 36px;margin-bottom:22px;color:#3A1F1F}
+.hero .wordmark{font-size:11px;font-weight:700;letter-spacing:3px;color:#5A3535;text-transform:uppercase;margin-bottom:8px}
+.hero h1{font-family:Cardo,'Times New Roman',Georgia,serif;font-size:38px;font-weight:400;margin:0 0 6px;letter-spacing:-0.01em;color:#3A1F1F;line-height:1.15}
+.hero .tag{color:#5A3535;margin:0;font-size:15px;font-style:italic}
+.hero .meta{color:#5A3535;margin:14px 0 0;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase}
+
+.kt-nav{display:flex;background:#fff;border:1px solid #E6DFD4;border-radius:12px;padding:6px;margin-bottom:28px;overflow-x:auto;gap:4px;box-shadow:0 1px 2px rgba(0,0,0,0.03)}
+.kt-nav a{flex:1;min-width:128px;padding:11px 12px 13px;text-align:center;text-decoration:none;color:#5A5753;border-radius:8px;transition:background .15s,color .15s;display:flex;flex-direction:column;align-items:center;gap:3px}
+.kt-nav a:hover{background:#F2EBE0;color:#2B2A28}
+.kt-nav a.active{background:#EF9F9F;color:#3A1F1F}
+.kt-nav a .week-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;opacity:.65}
+.kt-nav a.active .week-label{opacity:.85}
+.kt-nav a .week-name{font-family:Cardo,serif;font-size:17px;font-weight:400;line-height:1.1}
+
+section.kt-block{background:#fff;border:1px solid #E6DFD4;border-radius:12px;padding:24px 28px;margin-bottom:18px}
+section.kt-block.lead{border-left:4px solid #EF9F9F}
+section.kt-block.goal{background:linear-gradient(135deg,#FFF7EC 0%,#FCEEDA 100%);border:1px solid #C9A86A}
+
+.section-eye{font-size:11px;font-weight:700;letter-spacing:2px;color:#B55D5D;text-transform:uppercase;margin:0 0 6px}
+.section-eye.muted{color:#8A8681}
+.section-h2{font-family:Cardo,serif;font-size:24px;font-weight:400;color:#2B2A28;margin:0 0 14px;letter-spacing:-0.01em;line-height:1.2}
+.section-h2.tight{margin-bottom:8px}
+
+.kt-block p{margin:0 0 12px;font-size:15px;color:#2B2A28}
+.kt-block p:last-child{margin-bottom:0}
+.kt-block ul,.kt-block ol{margin:0 0 12px 0;padding-left:22px;font-size:15px;color:#2B2A28}
+.kt-block li{margin-bottom:8px}
+.kt-block strong{color:#2B2A28}
+
+.bucket-slide{background:#fff;border:2px solid #B55D5D;border-radius:14px;overflow:hidden;margin-bottom:22px;box-shadow:0 2px 12px rgba(181,93,93,0.08)}
+.bucket-slide .ribbon{background:#B55D5D;color:#fff;padding:10px 20px;font-size:11.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center}
+.bucket-slide .ribbon .pulse{display:inline-block;width:8px;height:8px;background:#fff;border-radius:50%;animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.bucket-slide .body{padding:22px 26px}
+.bucket-slide h3{font-family:Cardo,serif;font-size:26px;font-weight:400;margin:0 0 4px;color:#2B2A28}
+.bucket-slide .question{color:#5A5753;font-style:italic;font-size:14px;margin-bottom:14px}
+.bucket-slide ul.checklist{list-style:none;padding:0;margin:0}
+.bucket-slide ul.checklist li{padding:9px 0 9px 28px;border-bottom:1px solid #F2EBE0;position:relative;font-size:14.5px;color:#2B2A28}
+.bucket-slide ul.checklist li:last-child{border-bottom:none}
+.bucket-slide ul.checklist li::before{content:"";width:14px;height:14px;border:1.5px solid #C2BCB2;border-radius:3px;position:absolute;left:0;top:11px;background:#fff}
+.bucket-slide ul.checklist li.this-week{background:#FFF7EC;margin:0 -26px;padding-left:54px;padding-right:26px}
+.bucket-slide ul.checklist li.this-week::before{content:"";width:18px;height:18px;border:2.5px solid #C9A86A;border-radius:4px;left:26px;top:9px;box-shadow:0 0 0 4px #FCEEDA}
+.bucket-slide ul.checklist li.this-week::after{content:"WEEK 1 GOAL";position:absolute;right:18px;top:11px;background:#C9A86A;color:#3A2E10;padding:2px 9px;border-radius:4px;font-size:9.5px;font-weight:700;letter-spacing:1px}
+
+.permission{background:#FAF6F0;border:1px dashed #C9A86A;border-radius:10px;padding:18px 22px;margin:18px 0;font-size:14.5px;color:#5A4A20;font-style:italic}
+.permission strong{color:#3A2E10;font-style:normal}
+
+.callout{background:#FFF7EC;border-left:4px solid #C9A86A;border-radius:6px;padding:14px 18px;margin:14px 0;font-size:14px;color:#5A4A20}
+.callout strong{color:#3A2E10}
+
+.steps{counter-reset:step;list-style:none;padding:0;margin:0}
+.steps li{counter-increment:step;padding:14px 0 14px 56px;position:relative;border-bottom:1px solid #F2EBE0;font-size:15px}
+.steps li:last-child{border-bottom:none}
+.steps li::before{content:counter(step);position:absolute;left:0;top:14px;width:40px;height:40px;background:#EF9F9F;color:#3A1F1F;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-family:Cardo,serif;font-size:18px}
+.steps li strong{display:block;font-size:16px;margin-bottom:3px;color:#2B2A28}
+
+.kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.kpi-row .k{background:#FAF7F2;border:1px solid #E6DFD4;border-radius:8px;padding:14px 16px;text-align:center}
+.kpi-row .k .num{font-family:Cardo,serif;font-size:28px;color:#B55D5D;line-height:1}
+.kpi-row .k .lbl{font-size:11.5px;letter-spacing:1.5px;text-transform:uppercase;color:#8A8681;font-weight:700;margin-top:4px}
+
+.stub-banner{background:#F2EBE0;border:1px dashed #8A8681;border-radius:10px;padding:18px 22px;margin-bottom:18px;font-size:14px;color:#5A5753}
+.stub-banner strong{color:#2B2A28}
+
+.footer{color:#8A8681;font-size:12px;margin-top:48px;border-top:1px solid #E6DFD4;padding-top:18px;text-align:center}
+
+@media (max-width:680px){
+  .hero h1{font-size:28px}
+  .kt-nav a{min-width:100px;padding:9px 8px}
+  .kt-nav a .week-name{font-size:14px}
+  .kpi-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <span class="brand-left">FranDev · Katie's Launchpad</span>
+  <a class="back" href="../">← FranDev HQ</a>
+</div>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="wordmark">Katie's Launchpad · Week 3</div>
+    <h1>Week 3 — Closing</h1>
+    <p class="tag">Take the same lead from Qualifying into Closing. Funding validated, agreements in motion.</p>
+    <p class="meta">Working draft · Co-build with Clay</p>
+  </div>
+
+  <nav class="kt-nav">
+  <a href="./"><span class="week-label">Pre-Flight</span><span class="week-name">Orientation</span></a>
+  <a href="./week-1.html"><span class="week-label">Week 1</span><span class="week-name">Intake</span></a>
+  <a href="./week-2.html"><span class="week-label">Week 2</span><span class="week-name">Qualifying</span></a>
+  <a href="./week-3.html" class="active"><span class="week-label">Week 3</span><span class="week-name">Closing</span></a>
+  <a href="./week-4.html"><span class="week-label">Week 4</span><span class="week-name">Signed</span></a>
+</nav>
+
+  <div class="stub-banner">
+    <strong>Working draft.</strong> Skeleton mirrors Weeks 1 + 2. Co-build during the Week 2 → Week 3 transition.
+  </div>
+
+  <section class="kt-block">
+    <div class="section-eye">Provisional Goal</div>
+    <h2 class="section-h2">Move your lead from Qualifying → Closing. Funding validated, FranDev approval secured, FDD 16-day compliance clock running.</h2>
+    <p>Closing is the bucket where the deal actually gets done. By end of Week 3, you should be able to walk a candidate through funding validation, internal FranDev approval, and the early stages of agreement signing.</p>
+  </section>
+
+  <section class="kt-block">
+    <div class="section-eye">Topics To Build Out</div>
+    <h2 class="section-h2 tight">Drafting checklist:</h2>
+    <ul>
+      <li>Closing bucket slide pinned at top</li>
+      <li>What "FranDev approval" means and how it's recorded in FC</li>
+      <li>FDD 16-day compliance clock — what it is, how to track it, what to never miss</li>
+      <li>Funding validation — what counts as validated, common documents we ask for</li>
+      <li>Franchise awarded vs. accepted — the language difference and why it matters</li>
+      <li>Agreements process — handoff to legal, what Katie owns vs. what gets escalated</li>
+      <li>Role-play: walking a candidate through the closing conversation</li>
+      <li>What "done with Week 3" looks like</li>
+    </ul>
+  </section>
+
+</div>
+<div class="footer">
+  Mainstream Boutique · FranDev · Katie's Launchpad · Internal — for Katie + Clay + Corey
+</div>
+</body>
+</html>
