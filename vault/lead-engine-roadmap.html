@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FranDev Lead Engine Roadmap | Mainstream Boutique</title>
+<style>
+  :root {
+    --brand-pink: #EF9F9F;
+    --brand-pink-light: #FBE5E5;
+    --brand-pink-dark: #D87878;
+    --ink: #1F2937;
+    --ink-soft: #4B5563;
+    --ink-muted: #6B7280;
+    --line: #E5E7EB;
+    --bg: #FAFAF9;
+    --card: #FFFFFF;
+    --green: #10B981;
+    --green-bg: #D1FAE5;
+    --blue: #3B82F6;
+    --blue-bg: #DBEAFE;
+    --amber: #F59E0B;
+    --amber-bg: #FEF3C7;
+    --gray: #9CA3AF;
+    --gray-bg: #F3F4F6;
+    --red: #EF4444;
+    --red-bg: #FEE2E2;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.55;
+  }
+  .container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 32px 28px 80px;
+  }
+  /* HEADER */
+  .header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 8px;
+    padding-bottom: 20px;
+    border-bottom: 3px solid var(--brand-pink);
+  }
+  .header-left h1 {
+    font-size: 30px;
+    margin: 0 0 6px;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+  .header-left .sub {
+    font-size: 14px;
+    color: var(--ink-muted);
+    margin: 0;
+  }
+  .header-right {
+    text-align: right;
+    font-size: 12px;
+    color: var(--ink-muted);
+  }
+  .header-right .updated {
+    font-weight: 600;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 11px;
+  }
+  .header-right .date {
+    font-size: 14px;
+    color: var(--ink);
+    margin-top: 2px;
+  }
+  /* NORTH STAR BANNER */
+  .north-star {
+    background: var(--brand-pink);
+    color: #fff;
+    padding: 18px 22px;
+    border-radius: 10px;
+    margin: 24px 0 32px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .north-star .ns-label {
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    opacity: 0.85;
+    margin-bottom: 4px;
+  }
+  .north-star .ns-text {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  .north-star .ns-stat {
+    text-align: right;
+  }
+  .north-star .ns-stat-value {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .north-star .ns-stat-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    opacity: 0.85;
+    margin-top: 4px;
+  }
+  /* KPI TILES */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 14px;
+    margin-bottom: 36px;
+  }
+  .kpi {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .kpi-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-muted);
+    font-weight: 600;
+  }
+  .kpi-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-top: 6px;
+  }
+  .kpi-sub {
+    font-size: 12px;
+    color: var(--ink-muted);
+    margin-top: 4px;
+  }
+  /* SECTION */
+  section {
+    margin-bottom: 44px;
+  }
+  h2 {
+    font-size: 20px;
+    margin: 0 0 6px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  h2 .h2-tag {
+    font-size: 11px;
+    color: var(--ink-muted);
+    font-weight: 500;
+    margin-left: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .h2-sub {
+    font-size: 13px;
+    color: var(--ink-muted);
+    margin: 0 0 16px;
+  }
+  /* QUARTER CARDS */
+  .quarters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px;
+  }
+  .quarter {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  .quarter.current {
+    border: 2px solid var(--brand-pink);
+    background: linear-gradient(180deg, var(--brand-pink-light) 0%, #fff 28%);
+  }
+  .quarter-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 4px;
+  }
+  .quarter-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-muted);
+    font-weight: 600;
+  }
+  .quarter.current .quarter-label {
+    color: var(--brand-pink-dark);
+  }
+  .quarter-name {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 2px;
+  }
+  .quarter-theme {
+    font-size: 12px;
+    color: var(--ink-muted);
+    font-style: italic;
+    margin-bottom: 14px;
+  }
+  .quarter-bets {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .quarter-bets li {
+    font-size: 13px;
+    color: var(--ink-soft);
+    padding: 5px 0 5px 16px;
+    position: relative;
+  }
+  .quarter-bets li::before {
+    content: "→";
+    color: var(--brand-pink-dark);
+    position: absolute;
+    left: 0;
+    font-weight: 700;
+  }
+  /* MILESTONE TIMELINE */
+  .milestones {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 8px 0;
+  }
+  .milestone {
+    display: grid;
+    grid-template-columns: 110px 100px 1fr 90px;
+    gap: 16px;
+    padding: 12px 22px;
+    border-bottom: 1px solid var(--line);
+    align-items: center;
+  }
+  .milestone:last-child { border-bottom: none; }
+  .milestone-date {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
+  }
+  .milestone-track {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+  }
+  .milestone-track.lead { color: var(--brand-pink-dark); }
+  .milestone-track.conv { color: var(--blue); }
+  .milestone-track.infra { color: var(--ink-muted); }
+  .milestone-name {
+    font-size: 14px;
+    color: var(--ink);
+  }
+  .milestone-status {
+    font-size: 10px;
+    padding: 4px 9px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-align: center;
+  }
+  .status-shipped { background: var(--green-bg); color: #047857; }
+  .status-progress { background: var(--blue-bg); color: #1D4ED8; }
+  .status-queued { background: var(--gray-bg); color: var(--ink-muted); }
+  .status-blocked { background: var(--red-bg); color: #B91C1C; }
+  .status-due { background: var(--amber-bg); color: #92400E; }
+  /* THIS WEEK */
+  .this-week {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 4px 0;
+  }
+  .week-item {
+    display: grid;
+    grid-template-columns: 36px 1fr 110px 90px;
+    gap: 16px;
+    padding: 14px 22px;
+    border-bottom: 1px solid var(--line);
+    align-items: center;
+  }
+  .week-item:last-child { border-bottom: none; }
+  .week-num {
+    width: 28px;
+    height: 28px;
+    background: var(--brand-pink);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .week-name {
+    font-size: 14px;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .week-name .week-detail {
+    display: block;
+    font-size: 12px;
+    color: var(--ink-muted);
+    font-weight: 400;
+    margin-top: 2px;
+  }
+  .week-due {
+    font-size: 11px;
+    color: var(--ink-muted);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  /* LEAD VOLUME TABLE */
+  .lv-table-wrap {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  table.lv {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  table.lv thead th {
+    text-align: left;
+    background: var(--bg);
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  table.lv tbody td {
+    padding: 13px 14px;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-soft);
+    vertical-align: top;
+  }
+  table.lv tbody tr:last-child td { border-bottom: none; }
+  table.lv tbody tr:hover { background: var(--bg); }
+  .pill {
+    display: inline-block;
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+  .pill-lead { background: var(--brand-pink-light); color: var(--brand-pink-dark); }
+  .pill-conv { background: var(--blue-bg); color: #1D4ED8; }
+  .pill-infra { background: var(--gray-bg); color: var(--ink-muted); }
+  .pill-imm { background: var(--green-bg); color: #047857; }
+  .pill-30 { background: var(--amber-bg); color: #92400E; }
+  .pill-60 { background: #F3E8FF; color: #6B21A8; }
+  .pill-90 { background: #E0E7FF; color: #3730A3; }
+  .lift {
+    font-weight: 700;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+  .lift-note {
+    font-size: 11px;
+    color: var(--ink-muted);
+    font-weight: 400;
+    margin-top: 3px;
+    line-height: 1.35;
+  }
+  .project-name {
+    font-weight: 600;
+    color: var(--ink);
+  }
+  /* TOTALS ROW */
+  table.lv tfoot td {
+    padding: 14px;
+    background: var(--brand-pink-light);
+    color: var(--ink);
+    font-weight: 700;
+    border-top: 2px solid var(--brand-pink);
+    font-size: 13px;
+  }
+  /* RECENTLY SHIPPED */
+  .shipped-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+  }
+  .shipped-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--green);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .shipped-card .ship-date {
+    font-size: 11px;
+    color: var(--green);
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+  .shipped-card .ship-name {
+    font-size: 14px;
+    color: var(--ink);
+    font-weight: 600;
+    margin: 4px 0;
+  }
+  .shipped-card .ship-impact {
+    font-size: 12px;
+    color: var(--ink-muted);
+  }
+  /* OPERATING NOTES */
+  .ops-notes {
+    background: #FFFBEB;
+    border: 1px solid #FDE68A;
+    border-radius: 10px;
+    padding: 18px 22px;
+  }
+  .ops-notes h3 {
+    margin: 0 0 8px;
+    font-size: 14px;
+    color: #92400E;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .ops-notes ul {
+    margin: 0;
+    padding-left: 20px;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .ops-notes li { margin-bottom: 5px; }
+  /* LEGEND */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    font-size: 12px;
+    color: var(--ink-muted);
+    margin-top: 12px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  /* MOBILE */
+  @media (max-width: 720px) {
+    .container { padding: 20px 16px 60px; }
+    .header { flex-direction: column; align-items: flex-start; }
+    .header-right { text-align: left; }
+    .milestone {
+      grid-template-columns: 90px 1fr;
+      gap: 8px 12px;
+    }
+    .milestone-track, .milestone-status {
+      grid-column: 2;
+    }
+    .milestone-name { grid-column: 1 / -1; padding-top: 4px; }
+    .week-item {
+      grid-template-columns: 30px 1fr;
+      gap: 8px 12px;
+    }
+    .week-due { grid-column: 2; text-align: left; font-size: 11px; }
+    .week-status { grid-column: 2; justify-self: start; }
+    table.lv { font-size: 12px; }
+    table.lv thead { display: none; }
+    table.lv, table.lv tbody, table.lv tr, table.lv td { display: block; width: 100%; }
+    table.lv tr {
+      border-bottom: 1px solid var(--line);
+      padding: 10px 14px;
+    }
+    table.lv td { padding: 4px 0; border-bottom: none; }
+    table.lv td::before {
+      content: attr(data-label) ": ";
+      font-weight: 700;
+      color: var(--ink-muted);
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>FranDev Lead Engine Roadmap</h1>
+      <p class="sub">Single-pane view of every workstream feeding leads to the closer · Updated weekly</p>
+    </div>
+    <div class="header-right">
+      <div class="updated">Last Updated</div>
+      <div class="date">May 9, 2026</div>
+    </div>
+  </div>
+
+  <!-- NORTH STAR -->
+  <div class="north-star">
+    <div>
+      <div class="ns-label">North Star — 2030</div>
+      <div class="ns-text">150+ unit system by Dec 2030 · ~24 deals/yr by 2027 · Lead volume is the only bottleneck (close rate fixed at 30:1)</div>
+    </div>
+    <div class="ns-stat">
+      <div class="ns-stat-value">50-100</div>
+      <div class="ns-stat-label">Total leads/mo target · Dec 2026 (25-50 qualified)</div>
+    </div>
+  </div>
+
+  <!-- KPI ROW -->
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-label">Active Workstreams</div>
+      <div class="kpi-value">9</div>
+      <div class="kpi-sub">5 lead gen · 2 conversion · 2 infra</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Shipped Last 14 Days</div>
+      <div class="kpi-value">12</div>
+      <div class="kpi-sub">Pillars + state pages + FranServe form</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Modeled Monthly Lift</div>
+      <div class="kpi-value">+45-110</div>
+      <div class="kpi-sub">Leads/mo at full ramp (90+ days)</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Days to Baby</div>
+      <div class="kpi-value">~37</div>
+      <div class="kpi-sub">Jun 15 induction · ~25% productivity dip x 2 weeks · no full handoff</div>
+    </div>
+  </div>
+
+  <!-- ANNUAL HORIZON -->
+  <section>
+    <h2>Annual Horizon <span class="h2-tag">Quarterly Bets · 2026</span></h2>
+    <p class="h2-sub">High-altitude view. Each bet is a theme — milestones below decompose them into shippable work.</p>
+    <div class="quarters">
+
+      <div class="quarter current">
+        <div class="quarter-header">
+          <div class="quarter-label">Q2 · Apr-Jun · Current</div>
+        </div>
+        <div class="quarter-name">SEO Foundation + Broker Activation</div>
+        <div class="quarter-theme">Build the engine. Validate state-page pattern. Get into broker pipelines.</div>
+        <ul class="quarter-bets">
+          <li>3 pillar pages live + indexed</li>
+          <li>5 state pages live (FL, MN, WI, TX, NC)</li>
+          <li>FranServe activated (form + Brand Bytes)</li>
+          <li>Google Ads pilot launched (MN+WI)</li>
+          <li>Clarity baseline + 2 CRO fixes shipped</li>
+          <li>Decline diagnosis complete</li>
+        </ul>
+      </div>
+
+      <div class="quarter">
+        <div class="quarter-header">
+          <div class="quarter-label">Q3 · Jul-Sep</div>
+        </div>
+        <div class="quarter-name">YASL Refresh + PR + Network Activation</div>
+        <div class="quarter-theme">Earn comeback narrative. Activate owned-audience lead channels (customers + franchisees).</div>
+        <ul class="quarter-bets">
+          <li>YASL brand refresh shipped (logo + identity)</li>
+          <li>PR wire press release distribution</li>
+          <li>FBR re-engagement + editorial pitches</li>
+          <li>2nd broker network active (FranNet or IFPG)</li>
+          <li>5 more state pages (CO, PA, IL, IA, SC)</li>
+          <li>Locations Hub launch (with colleague's build)</li>
+          <li>Christi & Alayna brand-face content calendar</li>
+          <li><strong>Existing-customer franchise pitch launched (Initiative A)</strong></li>
+          <li><strong>Franchisee referral program launched (Initiative B)</strong></li>
+        </ul>
+      </div>
+
+      <div class="quarter">
+        <div class="quarter-header">
+          <div class="quarter-label">Q4 · Oct-Dec</div>
+        </div>
+        <div class="quarter-name">Harvest + 2027 Prep</div>
+        <div class="quarter-theme">Reap compounding SEO. Scale Google Ads. Prep next-year sprint.</div>
+        <ul class="quarter-bets">
+          <li>Discovery articles (3-5 SEO posts/mo)</li>
+          <li>Google Ads scaled to 6+ states</li>
+          <li>Retail SEO secondary workstream begins</li>
+          <li>Katie fully self-sufficient (Lead Engagement)</li>
+          <li>2027 SEO sprint plan drafted</li>
+          <li>FBR50 application (post-YASL momentum)</li>
+        </ul>
+      </div>
+
+      <div class="quarter">
+        <div class="quarter-header">
+          <div class="quarter-label">Q1 2027 · Jan-Mar</div>
+        </div>
+        <div class="quarter-name">Scale What Works</div>
+        <div class="quarter-theme">Double down on whichever channel produced the most qualified pipeline.</div>
+        <ul class="quarter-bets">
+          <li>Top-performing channel 2x budget</li>
+          <li>Multi-state expansion (10+ state pages)</li>
+          <li>3rd broker network if ROI justifies</li>
+          <li>Discovery Day events resumed (FL, MN)</li>
+          <li>Lead Engagement Tab v3 (Katie scorecard)</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- THIS WEEK -->
+  <section>
+    <h2>This Week <span class="h2-tag">May 9 - May 15 · Active Focus</span></h2>
+    <p class="h2-sub">Max 7 things in flight. If it's not on this list, it's queued or deferred.</p>
+    <div class="this-week">
+
+      <div class="week-item">
+        <div class="week-num">1</div>
+        <div class="week-name">Ship MN + WI state pages live to Shopify
+          <span class="week-detail">Both HTML files ready in workspace · 10-15 min per page</span>
+        </div>
+        <div class="week-due">Today (Sat)</div>
+        <div><span class="milestone-status status-progress">In Progress</span></div>
+      </div>
+
+      <div class="week-item">
+        <div class="week-num">2</div>
+        <div class="week-name">Email FranServe assets to Leah
+          <span class="week-detail">Logo + FDD + 2-Min Drill Word doc + Training description</span>
+        </div>
+        <div class="week-due">By Sun May 10</div>
+        <div><span class="milestone-status status-queued">Queued</span></div>
+      </div>
+
+      <div class="week-item">
+        <div class="week-num">3</div>
+        <div class="week-name">Capture franchise site live date + decline diagnosis kickoff
+          <span class="week-detail">Pull /pages/franchise created date · Set t=0 anchor for SEO baseline math</span>
+        </div>
+        <div class="week-due">Mon May 11</div>
+        <div><span class="milestone-status status-queued">Queued</span></div>
+      </div>
+
+      <div class="week-item">
+        <div class="week-num">4</div>
+        <div class="week-name">Draft FL state landing page (#1 priority growth state)
+          <span class="week-detail">Highest-volume target market · Apricot Lane has presence</span>
+        </div>
+        <div class="week-due">Wed May 13</div>
+        <div><span class="milestone-status status-queued">Queued</span></div>
+      </div>
+
+      <div class="week-item">
+        <div class="week-num">5</div>
+        <div class="week-name">Record FranServe Brand Bytes webinar
+          <span class="week-detail">10-15 min · feeds broker network deal flow · part of FranServe activation</span>
+        </div>
+        <div class="week-due">Thu May 14</div>
+        <div><span class="milestone-status status-queued">Queued</span></div>
+      </div>
+
+      <div class="week-item">
+        <div class="week-num">6</div>
+        <div class="week-name">Round 2 outreach (5 emails)
+          <span class="week-detail">Continue PR outreach list · skip FBR until YASL · build relationships now</span>
+        </div>
+        <div class="week-due">Throughout week</div>
+        <div><span class="milestone-status status-progress">In Progress</span></div>
+      </div>
+
+      <div class="week-item">
+        <div class="week-num">7</div>
+        <div class="week-name">Clarity weekly review
+          <span class="week-detail">7-day session metadata · pull friction patterns · log to cro-log.md</span>
+        </div>
+        <div class="week-due">Mon May 11 EOD</div>
+        <div><span class="milestone-status status-queued">Queued</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MONTH MILESTONES -->
+  <section>
+    <h2>Current Month <span class="h2-tag">May 2026 Milestones</span></h2>
+    <p class="h2-sub">Backwards-mapped from Q2 quarterly bets. Track = Lead Gen / Conversion / Infrastructure.</p>
+    <div class="milestones">
+
+      <div class="milestone">
+        <div class="milestone-date">May 7</div>
+        <div class="milestone-track lead">LEAD GEN</div>
+        <div class="milestone-name">3 Pillar pages live + internal links + GSC submitted</div>
+        <div><span class="milestone-status status-shipped">Shipped</span></div>
+      </div>
+
+      <div class="milestone">
+        <div class="milestone-date">May 8</div>
+        <div class="milestone-track lead">LEAD GEN</div>
+        <div class="milestone-name">FranServe Partnership Questionnaire submitted</div>
+        <div><span class="milestone-status status-shipped">Shipped</span></div>
+      </div>
+
+      <div class="milestone">
+        <div class="milestone-date">May 8</div>
+        <div class="milestone-track lead">LEAD GEN</div>
+        <div class="milestone-name">MN + WI state landing pages built (Shopify-ready)</div>
+        <div><span class="milestone-status status-shipped">Shipped</span></div>
+      </div>
+
+      <div class="milestone">
+        <div class="milestone-date">May 9</div>
+        <div class="milestone-track lead">LEAD GEN</div>
+        <div class="milestone-name">MN + WI state pages live on Shopify</div>
+        <div><span class="milestone-status status-progress">In Progress</span></div>
+      </div>
+
+      <div class="milestone">
+        <div class="milestone-date">May 10</div>
+        <div class="milestone-track lead">LEAD GEN</div>
+        <div class="milestone-name">FranServe assets emailed to Leah</div>
+        <div><span class="milestone-status status-queued">Queued</span></div>
+      </div>
+
+      <div class="milestone">
+        <div class="milestone-date">May 13</div>
+        <div class="milestone-track lead">LEAD GEN</div>
+        <div class="milestone-name">FL state landing page drafted + Shopify-ready</div>
+        <div><span class="milestone-status status-queued">Queued</span></div>
+      </div>
+
+      <div class="milestone">
+        <div class="milestone-date">May 14</div>
+        <div class="milestone-track lead">LEAD GEN</div>
+        <div class="milestone-name">FranServe Brand Bytes webinar recorded</div>
+        <div><span class="milestone-status status-queued">Queued</span></div>
+      </div>
+
+      <div class="milestone">
+        <div class="milestone-date">May 15</div>
+        <div class="milestone-track infra">INFRA</div>
+        <div class="milestone-name">Decline diagnosis complete · t=0 anchor logged</div>
+        <div><span class="milestone-status status-queued">Queued</span></div>
+      </div>
+
+      <div class="milestone">
+        <div class="milestone-date">May 18</div>
+        <div class="milestone-track conv">CONVERSION</div>
+        <div class="milestone-name">Conversion workstream kickoff · Clarity → fix shortlist</div>
+        <div><span class="milestone-status status-queued">Queued</span></div>
+      </div>
+
+      <div class="milestone">
+        <div class="milestone-date">May 20</div>
+        <div class="milestone-track lead">LEAD GEN</div>
+        <div class="milestone-name">FL state page live · Google Ads pilot launched (MN+WI)</div>
+        <div><span class="milestone-status status-queued">Queued</span></div>
+      </div>
+
+      <div class="milestone">
+        <div class="milestone-date">May 22</div>
+        <div class="milestone-track lead">LEAD GEN</div>
+        <div class="milestone-name">Broker strategy memo · pick 2nd network (FranNet vs IFPG vs FBA)</div>
+        <div><span class="milestone-status status-queued">Queued</span></div>
+      </div>
+
+      <div class="milestone">
+        <div class="milestone-date">May 26</div>
+        <div class="milestone-track conv">CONVERSION</div>
+        <div class="milestone-name">CRO fix shortlist shipped (top 2 from Clarity)</div>
+        <div><span class="milestone-status status-queued">Queued</span></div>
+      </div>
+
+      <div class="milestone">
+        <div class="milestone-date">May 28</div>
+        <div class="milestone-track lead">LEAD GEN</div>
+        <div class="milestone-name">2 SEO blog posts shipped (cluster around pillars)</div>
+        <div><span class="milestone-status status-queued">Queued</span></div>
+      </div>
+
+      <div class="milestone">
+        <div class="milestone-date">May 30</div>
+        <div class="milestone-track lead">LEAD GEN</div>
+        <div class="milestone-name">2nd broker network applied to · Tier-2 state page (TX or NC) drafted</div>
+        <div><span class="milestone-status status-queued">Queued</span></div>
+      </div>
+
+      <div class="milestone">
+        <div class="milestone-date">May 31</div>
+        <div class="milestone-track conv">CONVERSION</div>
+        <div class="milestone-name">Monthly Clarity synthesis · 3-strikes review · next month's fix decided</div>
+        <div><span class="milestone-status status-queued">Queued</span></div>
+      </div>
+
+      <div class="milestone">
+        <div class="milestone-date">May 31</div>
+        <div class="milestone-track lead">LEAD GEN</div>
+        <div class="milestone-name">Initiative A scoped · pull customer DB segment (high-LTV, priority states, demographic match)</div>
+        <div><span class="milestone-status status-queued">Queued</span></div>
+      </div>
+
+      <div class="milestone">
+        <div class="milestone-date">Jun 12</div>
+        <div class="milestone-track infra">INFRA</div>
+        <div class="milestone-name"><strong>PATERNITY CUSHION — all in-flight work in shippable state · induction Jun 15 · ~25% dip 2wks · no full handoff</strong></div>
+        <div><span class="milestone-status status-due">Critical</span></div>
+      </div>
+
+      <div class="milestone">
+        <div class="milestone-date">Jun 15</div>
+        <div class="milestone-track lead">LEAD GEN</div>
+        <div class="milestone-name">Initiative A — email campaign drafted · landing page UTM built · soft test to 100 customers</div>
+        <div><span class="milestone-status status-queued">Queued</span></div>
+      </div>
+
+      <div class="milestone">
+        <div class="milestone-date">Jun 20</div>
+        <div class="milestone-track lead">LEAD GEN</div>
+        <div class="milestone-name">Initiative B — referral program structure designed · legal review (FDD impact) initiated</div>
+        <div><span class="milestone-status status-queued">Queued</span></div>
+      </div>
+
+      <div class="milestone">
+        <div class="milestone-date">Jul 1</div>
+        <div class="milestone-track lead">LEAD GEN</div>
+        <div class="milestone-name">Initiative A full launch (all priority-state customers) · Initiative B announced to 55+ owners</div>
+        <div><span class="milestone-status status-queued">Queued</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- LEAD VOLUME MODEL -->
+  <section>
+    <h2>Lead-Volume Model <span class="h2-tag">Honest Ranges · Range = uncertainty band, not target</span></h2>
+    <p class="h2-sub">Each project tagged: Type · Time-to-Impact · Expected Lift (range). Conservative ranges. Will be wrong project-by-project, directionally right in aggregate.</p>
+    <div class="lv-table-wrap">
+      <table class="lv">
+        <thead>
+          <tr>
+            <th>Project</th>
+            <th>Type</th>
+            <th>Time-to-Impact</th>
+            <th>Expected Monthly Lift</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            <td data-label="Project"><span class="project-name">/pages/franchise SEO compounding</span></td>
+            <td data-label="Type"><span class="pill pill-lead">Lead Gen</span></td>
+            <td data-label="Time"><span class="pill pill-60">60-90 days</span></td>
+            <td data-label="Lift">
+              <span class="lift">+10 to +30 leads/mo</span>
+              <div class="lift-note">Title/meta + schema + internal links shipped. Compounds 60-90 days post-rewrite.</div>
+            </td>
+            <td data-label="Status"><span class="milestone-status status-shipped">Live</span></td>
+          </tr>
+
+          <tr>
+            <td data-label="Project"><span class="project-name">3 Pillar pages (Clothing / Retail / Boutique)</span></td>
+            <td data-label="Type"><span class="pill pill-lead">Lead Gen</span></td>
+            <td data-label="Time"><span class="pill pill-60">60-90 days</span></td>
+            <td data-label="Lift">
+              <span class="lift">+5 to +15 leads/mo</span>
+              <div class="lift-note">Topical authority hub. Lifts /pages/franchise too via internal linking.</div>
+            </td>
+            <td data-label="Status"><span class="milestone-status status-shipped">Live</span></td>
+          </tr>
+
+          <tr>
+            <td data-label="Project"><span class="project-name">10 State landing pages (FL/NC/SC/TX/CO/MN/WI/IL/PA/IA)</span></td>
+            <td data-label="Type"><span class="pill pill-lead">Lead Gen</span></td>
+            <td data-label="Time"><span class="pill pill-60">60-90 days</span></td>
+            <td data-label="Lift">
+              <span class="lift">+15 to +40 leads/mo</span>
+              <div class="lift-note">+1.5-4 per state at 90 days. FL likely 2x average. MN/WI live, FL next.</div>
+            </td>
+            <td data-label="Status"><span class="milestone-status status-progress">2 of 10 Live</span></td>
+          </tr>
+
+          <tr>
+            <td data-label="Project"><span class="project-name">Google Ads pilot (MN+WI, then scale)</span></td>
+            <td data-label="Type"><span class="pill pill-lead">Lead Gen</span></td>
+            <td data-label="Time"><span class="pill pill-imm">Immediate</span></td>
+            <td data-label="Lift">
+              <span class="lift">+5 to +20 leads/mo</span>
+              <div class="lift-note">Pilot budget ~$1.5-3K/mo. Scales linearly with spend until CPL ceiling hits.</div>
+            </td>
+            <td data-label="Status"><span class="milestone-status status-queued">Launching May 20</span></td>
+          </tr>
+
+          <tr>
+            <td data-label="Project"><span class="project-name">FranServe broker network</span></td>
+            <td data-label="Type"><span class="pill pill-lead">Lead Gen</span></td>
+            <td data-label="Time"><span class="pill pill-30">30-60 days</span></td>
+            <td data-label="Lift">
+              <span class="lift">+2 to +8 leads/mo</span>
+              <div class="lift-note">Deal flow ramps after Brand Bytes webinar. Ramps further at 90 days as consultants warm up.</div>
+            </td>
+            <td data-label="Status"><span class="milestone-status status-progress">Form Submitted</span></td>
+          </tr>
+
+          <tr>
+            <td data-label="Project"><span class="project-name">2nd broker network (FranNet/IFPG/FBA)</span></td>
+            <td data-label="Type"><span class="pill pill-lead">Lead Gen</span></td>
+            <td data-label="Time"><span class="pill pill-30">30-60 days</span></td>
+            <td data-label="Lift">
+              <span class="lift">+2 to +8 leads/mo</span>
+              <div class="lift-note">Strategy memo May 22. Likely FranNet (largest network) — but IFPG digital-first may fit better.</div>
+            </td>
+            <td data-label="Status"><span class="milestone-status status-queued">Queued</span></td>
+          </tr>
+
+          <tr>
+            <td data-label="Project"><span class="project-name">SEO blog posts (cluster content, 3-5/quarter)</span></td>
+            <td data-label="Type"><span class="pill pill-lead">Lead Gen</span></td>
+            <td data-label="Time"><span class="pill pill-90">90+ days</span></td>
+            <td data-label="Lift">
+              <span class="lift">+3 to +10 leads/mo</span>
+              <div class="lift-note">Long-tail capture (cost questions, comparison queries). Compounds late 2026 / Q1 2027.</div>
+            </td>
+            <td data-label="Status"><span class="milestone-status status-progress">2 Shipped</span></td>
+          </tr>
+
+          <tr>
+            <td data-label="Project"><span class="project-name">YASL brand refresh + PR launch</span></td>
+            <td data-label="Type"><span class="pill pill-lead">Lead Gen</span></td>
+            <td data-label="Time"><span class="pill pill-90">90+ days</span></td>
+            <td data-label="Lift">
+              <span class="lift">+3 to +12 leads/mo</span>
+              <div class="lift-note">Burst on launch (1-2 mo of earned media spike), then decay to baseline lift. Q3 launch.</div>
+            </td>
+            <td data-label="Status"><span class="milestone-status status-queued">Q3 Anchor</span></td>
+          </tr>
+
+          <tr style="background: #FFF7F7;">
+            <td data-label="Project"><span class="project-name">Existing-customer franchise pitch (Initiative A)</span></td>
+            <td data-label="Type"><span class="pill pill-lead">Lead Gen</span></td>
+            <td data-label="Time"><span class="pill pill-30">30-60 days</span></td>
+            <td data-label="Lift">
+              <span class="lift">+2 to +8 leads/mo</span>
+              <div class="lift-note">Targeted email to high-LTV customers in priority states. Quality is unusually high (50-70% qualification rate vs typical 30-50%) — they already love the brand.</div>
+            </td>
+            <td data-label="Status"><span class="milestone-status status-queued">Q3 Launch</span></td>
+          </tr>
+
+          <tr style="background: #FFF7F7;">
+            <td data-label="Project"><span class="project-name">Franchisee referral program (Initiative B)</span></td>
+            <td data-label="Type"><span class="pill pill-lead">Lead Gen</span></td>
+            <td data-label="Time"><span class="pill pill-60">60-90 days</span></td>
+            <td data-label="Lift">
+              <span class="lift">+1 to +4 leads/mo</span>
+              <div class="lift-note">$1K-$2K bounty per signed deal. Small volume, very high quality (already-vetted via existing owner). Network effect compounds in 2027+.</div>
+            </td>
+            <td data-label="Status"><span class="milestone-status status-queued">Q3 Launch</span></td>
+          </tr>
+
+          <tr>
+            <td data-label="Project"><span class="project-name">CRO fixes from Clarity (monthly cadence)</span></td>
+            <td data-label="Type"><span class="pill pill-conv">Conversion</span></td>
+            <td data-label="Time"><span class="pill pill-imm">Immediate</span></td>
+            <td data-label="Lift">
+              <span class="lift">+5-15% form completion rate</span>
+              <div class="lift-note">Per-fix lift small (2-5%). Stacks across 6-8 fixes/yr. Multiplies all lead gen channels.</div>
+            </td>
+            <td data-label="Status"><span class="milestone-status status-progress">2 Shipped</span></td>
+          </tr>
+
+          <tr>
+            <td data-label="Project"><span class="project-name">FranConnect email/SMS workflow improvements</span></td>
+            <td data-label="Type"><span class="pill pill-conv">Conversion</span></td>
+            <td data-label="Time"><span class="pill pill-30">30-60 days</span></td>
+            <td data-label="Lift">
+              <span class="lift">+5-10% qualified rate</span>
+              <div class="lift-note">Better deliverability + cleaner footer + better content = more leads engage past Stage 1.</div>
+            </td>
+            <td data-label="Status"><span class="milestone-status status-progress">Direct-to-live mode</span></td>
+          </tr>
+
+          <tr>
+            <td data-label="Project"><span class="project-name">Locations Hub launch (colleague's build)</span></td>
+            <td data-label="Type"><span class="pill pill-conv">Conversion</span></td>
+            <td data-label="Time"><span class="pill pill-30">30-60 days</span></td>
+            <td data-label="Lift">
+              <span class="lift">+3-7% on retail traffic intent</span>
+              <div class="lift-note">Improves customer UX. Spillover to franchise lead capture via cross-link CTAs.</div>
+            </td>
+            <td data-label="Status"><span class="milestone-status status-progress">Colleague Building</span></td>
+          </tr>
+
+          <tr>
+            <td data-label="Project"><span class="project-name">Christi & Alayna brand-face content</span></td>
+            <td data-label="Type"><span class="pill pill-conv">Conversion</span></td>
+            <td data-label="Time"><span class="pill pill-30">30-60 days</span></td>
+            <td data-label="Lift">
+              <span class="lift">+10-25% form trust signal</span>
+              <div class="lift-note">Live owner social proof on franchise pages = higher form completion + more qualified leads.</div>
+            </td>
+            <td data-label="Status"><span class="milestone-status status-queued">Post-YASL</span></td>
+          </tr>
+
+          <tr>
+            <td data-label="Project"><span class="project-name">Decline diagnosis</span></td>
+            <td data-label="Type"><span class="pill pill-infra">Infra</span></td>
+            <td data-label="Time"><span class="pill pill-imm">Immediate</span></td>
+            <td data-label="Lift">
+              <span class="lift">Triage signal</span>
+              <div class="lift-note">Identifies highest-ROI fixes. No direct lead lift — directs other workstreams.</div>
+            </td>
+            <td data-label="Status"><span class="milestone-status status-queued">Mon May 11</span></td>
+          </tr>
+
+          <tr>
+            <td data-label="Project"><span class="project-name">17 domain redirects (preserve old SEO juice)</span></td>
+            <td data-label="Type"><span class="pill pill-infra">Infra</span></td>
+            <td data-label="Time"><span class="pill pill-30">30-60 days</span></td>
+            <td data-label="Lift">
+              <span class="lift">Defensive · +0-5 leads/mo</span>
+              <div class="lift-note">Recovers stranded backlinks. Mostly defensive — prevents further leak.</div>
+            </td>
+            <td data-label="Status"><span class="milestone-status status-queued">Queued</span></td>
+          </tr>
+
+          <tr>
+            <td data-label="Project"><span class="project-name">Katie ramp + Lead Engagement Tab</span></td>
+            <td data-label="Type"><span class="pill pill-infra">Infra</span></td>
+            <td data-label="Time"><span class="pill pill-30">30-60 days</span></td>
+            <td data-label="Lift">
+              <span class="lift">Capacity · 2x lead handling</span>
+              <div class="lift-note">Frees Clay's time for closing + strategy. Critical pre-baby. Multiplies effective close throughput.</div>
+            </td>
+            <td data-label="Status"><span class="milestone-status status-progress">In Progress</span></td>
+          </tr>
+
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3">Aggregate modeled lift at 90+ days (lead-gen channels only)</td>
+            <td colspan="2"><span class="lift">+45 to +110 leads/mo</span> · total volume over current ~10/mo baseline → <strong>55-120/mo total · 25-50/mo qualified by Dec 2026</strong></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <div class="legend">
+      <div class="legend-item"><span class="pill pill-lead">Lead Gen</span> Drives volume into the funnel</div>
+      <div class="legend-item"><span class="pill pill-conv">Conversion</span> Improves rate of leads → qualified → close</div>
+      <div class="legend-item"><span class="pill pill-infra">Infra</span> Enables other work · no direct lift</div>
+    </div>
+  </section>
+
+  <!-- RECENTLY SHIPPED -->
+  <section>
+    <h2>Recently Shipped <span class="h2-tag">Last 14 Days · Measured Impact</span></h2>
+    <p class="h2-sub">What landed. Lead-volume impact captured where measured. Reset tracking when Position Tracking has 30 days of data.</p>
+    <div class="shipped-grid">
+
+      <div class="shipped-card">
+        <div class="ship-date">May 8</div>
+        <div class="ship-name">FranServe Partnership Questionnaire submitted</div>
+        <div class="ship-impact">Enters MB into FranServe consultant pipeline. Lift modeled 30-60 days.</div>
+      </div>
+
+      <div class="shipped-card">
+        <div class="ship-date">May 8</div>
+        <div class="ship-name">MN + WI state landing pages built</div>
+        <div class="ship-impact">Shopify-ready HTML files in workspace. Deploy May 9.</div>
+      </div>
+
+      <div class="shipped-card">
+        <div class="ship-date">May 7</div>
+        <div class="ship-name">3 Pillar pages live + GSC submitted</div>
+        <div class="ship-impact">Topical authority hub. Internal links from /pages/franchise live.</div>
+      </div>
+
+      <div class="shipped-card">
+        <div class="ship-date">May 7</div>
+        <div class="ship-name">10,002 image alt-text fix via TinySEO</div>
+        <div class="ship-impact">Major Site Audit issue cleared. Better image SEO + accessibility.</div>
+      </div>
+
+      <div class="shipped-card">
+        <div class="ship-date">May 6</div>
+        <div class="ship-name">Microsoft Clarity installed on franchise pages</div>
+        <div class="ship-impact">Conversion workstream measurement infrastructure live.</div>
+      </div>
+
+      <div class="shipped-card">
+        <div class="ship-date">May 5</div>
+        <div class="ship-name">CRO fixes #1 + #3 shipped to /pages/franchise</div>
+        <div class="ship-impact">Hero CTA + form layout. Measuring via Clarity + GSC.</div>
+      </div>
+
+      <div class="shipped-card">
+        <div class="ship-date">May 5</div>
+        <div class="ship-name">Calendly CTA on franchise hero + form</div>
+        <div class="ship-impact">Reduces friction to booking. Tracking via Calendly events.</div>
+      </div>
+
+      <div class="shipped-card">
+        <div class="ship-date">May 4</div>
+        <div class="ship-name">Title + meta rewrites (3 franchise pages)</div>
+        <div class="ship-impact">Compounds in 60-90 days as Google re-indexes.</div>
+      </div>
+
+      <div class="shipped-card">
+        <div class="ship-date">May 3</div>
+        <div class="ship-name">Schema markup verified + internal linking improved</div>
+        <div class="ship-impact">Foundation work. Multiplies all SEO lift downstream.</div>
+      </div>
+
+      <div class="shipped-card">
+        <div class="ship-date">Apr 27-28</div>
+        <div class="ship-name">FC Stage 1 Intake email + SMS shipped</div>
+        <div class="ship-impact">Lead-engagement quality lift. Reduces drop-off pre-Discovery.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- OPERATING NOTES -->
+  <section>
+    <div class="ops-notes">
+      <h3>Operating Notes — Read Before Updating</h3>
+      <ul>
+        <li><strong>Update cadence:</strong> Weekly on Mondays after Clarity review. Move "This Week" forward, mark milestones, update Recently Shipped.</li>
+        <li><strong>"This Week" max = 7 items.</strong> If something else demands attention, push a current item back to queue or delete it. The cap forces triage.</li>
+        <li><strong>Lead-volume ranges are uncertainty bands, not targets.</strong> Don't sharpen them into numbers — that creates false precision and bad decisions.</li>
+        <li><strong>Tag every project at creation:</strong> Lead Gen / Conversion / Infrastructure. Forces ROI thinking before work starts.</li>
+        <li><strong>Aggregate modeled lift will be wrong project-by-project.</strong> If aggregate is directionally right by 90 days, model is calibrated. If aggregate is way off, recalibrate the ranges.</li>
+        <li><strong>Pre-baby handoff:</strong> By June 5, this doc should be readable by Katie + Corey without Clay context. Everything in flight = on this page.</li>
+        <li><strong>Initiatives A + B added 5/9/26:</strong> Owned-audience lead channels (existing customers + existing franchisees). De-risk SEO + broker timing. No other apparel franchise runs these — quiet competitive advantage.</li>
+        <li><strong>December target math:</strong> 55-120 total leads/mo · 25-50 qualified · base case ~70 total / 30 qualified. Maps to ~12 deals/yr at 30:1 close rate (2x current pace).</li>
+      </ul>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
